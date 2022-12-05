@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 
 import { LinkStyled, Logo } from './Layout.styled';
 
@@ -18,7 +18,7 @@ export const Layout = () => {
           <Logo as={Link} to="/">
             PhoneBook
           </Logo>
-          <Box as="nav" display="flex" gap="10px">
+          <Box as="nav" display="flex" gap="15px" alignItems="center">
             <LinkStyled as={NavLink} to="/contacts">
               Contacts
             </LinkStyled>
@@ -26,7 +26,9 @@ export const Layout = () => {
               Add contacts
             </LinkStyled>
           </Box>
-          <Box>...there must be auth</Box>
+          <Button colorScheme="purple" size="sm">
+            Logout
+          </Button>
         </Box>
         <Box as="main" width="1200px" mx="auto">
           <Outlet />
