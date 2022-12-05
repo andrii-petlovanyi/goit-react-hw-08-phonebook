@@ -20,10 +20,10 @@ export const Layout = () => {
           </Logo>
           <Box as="nav" display="flex" gap="10px">
             <LinkStyled as={NavLink} to="/contacts">
-              Контакти
+              Contacts
             </LinkStyled>
             <LinkStyled as={NavLink} to="/add">
-              Додати контакт
+              Add contacts
             </LinkStyled>
           </Box>
           <Box>...there must be auth</Box>
