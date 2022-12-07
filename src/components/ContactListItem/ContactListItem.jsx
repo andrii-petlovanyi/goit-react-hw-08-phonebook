@@ -37,7 +37,7 @@ export const ContactListItem = ({ contact = [] }) => {
             <IconButton
               variant="outline"
               colorScheme="purple"
-              aria-label="See menu"
+              aria-label="Delete contact"
               size="md"
               fontSize="20px"
               icon={<MdDeleteOutline />}

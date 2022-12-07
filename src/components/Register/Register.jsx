@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import {
   useDisclosure,
@@ -15,12 +16,16 @@ import {
   Input,
   useToast,
 } from '@chakra-ui/react';
+import { useSignUpUserMutation } from 'redux/auth/authApiSlice';
+import { register } from 'redux/auth/authSlice';
 
 export const Register = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [signUpUser] = useSignUpUserMutation();
   const [value, setValue] = useState({
-    nickname: '',
+    name: '',
     email: '',
     password: '',
   });
@@ -42,19 +47,31 @@ export const Register = () => {
     navigate('/login');
   };
 
-  const handleSubmitForm = e => {
+  const handleSubmitForm = async e => {
     // e.preventDefault();
-    if (value.email === '' || value.password === '' || value.nickname === '')
+    if (value.name === '' || value.email === '' || value.password === '')
       return toast({
         description: 'Please, fill all fields form...',
         isClosable: true,
         status: 'error',
-        colorScheme: 'purple',
       });
-    setValue({ email: '', password: '', nickname: '' });
-    console.log('hello');
-    onClose();
-    navigate('/');
+
+    try {
+      const checkedUser = await signUpUser(value, {
+        selectFromResult: ({ data }) => data.user,
+      });
+      dispatch(register(checkedUser));
+      setValue({ name: '', email: '', password: '' });
+      onClose();
+      navigate('/');
+    } catch (error) {
+      toast({
+        description:
+          'Something went wrong...Maybe, this user already exists...',
+        isClosable: true,
+        status: 'error',
+      });
+    }
   };
 
   const handleClose = () => {
@@ -70,10 +87,11 @@ export const Register = () => {
           <ModalHeader>Please fill your data</ModalHeader>
           <ModalBody>
             <FormControl py="20px">
-              <FormLabel>Nickname</FormLabel>
+              <FormLabel>Name</FormLabel>
               <Input
                 type="text"
-                name="nickname"
+                name="name"
+                id="register_name"
                 value={value.nickname}
                 onChange={handleInputChange}
               />
@@ -81,6 +99,7 @@ export const Register = () => {
               <Input
                 name="email"
                 type="email"
+                id="register_email"
                 value={value.email}
                 onChange={handleInputChange}
               />
@@ -88,6 +107,7 @@ export const Register = () => {
               <Input
                 name="password"
                 type="password"
+                id="register_password"
                 value={value.password}
                 onChange={handleInputChange}
               />
@@ -98,13 +118,19 @@ export const Register = () => {
             <Button
               type="submit"
               onClick={handleSubmitForm}
+              aria-label="Sign up"
               colorScheme="purple"
               size="md"
             >
               Sign up
             </Button>
-            <Button onClick={handleClickLogin} colorScheme="purple" size="md">
-              Login
+            <Button
+              onClick={handleClickLogin}
+              aria-label="Sign in"
+              colorScheme="purple"
+              size="md"
+            >
+              Sign in
             </Button>
           </ModalFooter>
         </ModalContent>

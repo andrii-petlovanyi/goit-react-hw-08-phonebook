@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import {
   useDisclosure,
   Button,
@@ -15,20 +17,20 @@ import {
   useToast,
 } from '@chakra-ui/react';
 
+import { logIn } from 'redux/auth/authSlice';
+import { useLogInUserMutation } from 'redux/auth/authApiSlice';
+
 export const Login = () => {
-  const location = useLocation();
-  const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState({
     email: '',
     password: '',
   });
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const [logInUser] = useLogInUserMutation();
+  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
-
-  const handleInputChange = e => {
-    const { name, value } = e.currentTarget;
-    setValue(state => ({ ...state, [name]: value }));
-  };
 
   useEffect(() => {
     onOpen();
@@ -36,19 +38,36 @@ export const Login = () => {
     // eslint-disable-next-line
   }, [location]);
 
-  const handleSubmitForm = e => {
-    // e.preventDefault();
+  const handleInputChange = e => {
+    const { name, value } = e.currentTarget;
+    setValue(state => ({ ...state, [name]: value }));
+  };
+
+  const handleSubmitForm = async e => {
     if (value.email === '' || value.password === '')
       return toast({
         description: 'Please, fill all fields form...',
         isClosable: true,
         status: 'error',
-        colorScheme: 'purple',
       });
-    setValue({ email: '', password: '' });
-    console.log('hello');
-    navigate('/');
-    onClose();
+
+    try {
+      const checkedUser = await logInUser(value, {
+        selectFromResult: ({ data }) => data.user,
+      });
+
+      dispatch(logIn(checkedUser));
+      setValue({ email: '', password: '' });
+      navigate('/contacts');
+      onClose();
+    } catch (error) {
+      toast({
+        description:
+          'Wrong username or e-mail. If you`re not signed up yet, you`re welcome to do it!',
+        isClosable: true,
+        status: 'error',
+      });
+    }
   };
 
   const handleClickSignUp = () => {
@@ -72,6 +91,7 @@ export const Login = () => {
               <Input
                 name="email"
                 type="email"
+                id="login_email"
                 value={value.email}
                 onChange={handleInputChange}
               />
@@ -79,6 +99,7 @@ export const Login = () => {
               <Input
                 name="password"
                 type="password"
+                id="login_password"
                 value={value.password}
                 onChange={handleInputChange}
               />
@@ -89,12 +110,18 @@ export const Login = () => {
             <Button
               type="submit"
               onClick={handleSubmitForm}
+              aria-label="Login user"
               colorScheme="purple"
               size="md"
             >
-              Login
+              Sign in
             </Button>
-            <Button onClick={handleClickSignUp} colorScheme="purple" size="md">
+            <Button
+              onClick={handleClickSignUp}
+              aria-label="Sign up"
+              colorScheme="purple"
+              size="md"
+            >
               Sign Up
             </Button>
           </ModalFooter>
