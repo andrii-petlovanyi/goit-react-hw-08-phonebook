@@ -36,7 +36,7 @@ export const Layout = () => {
             Login
           </Button>
         </Box>
-        <Box as="main" maxWidth="1200px" width="100%" mx="auto">
+        <Box as="main" maxWidth="1200px" width="100%" mx="auto" px="15px">
           <Outlet />
         </Box>
       </Box>
