@@ -1,3 +1,14 @@
+import { Heading } from '@chakra-ui/react';
+import { ContactList } from 'components/ContactList/ContactList';
+
 export const Contacts = () => {
-  return <>Hello, this is contacts list...</>;
+  return (
+    <>
+      <Heading size="md" my="20px">
+        Hello, this is contacts list...
+      </Heading>
+
+      <ContactList />
+    </>
+  );
 };

@@ -1,15 +1,21 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Box, Button } from '@chakra-ui/react';
 
 import { LinkStyled, Logo } from './Layout.styled';
 
 export const Layout = () => {
+  const navigate = useNavigate();
+
+  const handleClickLogin = () => {
+    navigate('/login');
+  };
   return (
     <>
       <Box bg="#dAdDdF" height="100vh">
         <Box
           as="header"
-          width="1200px"
+          maxWidth="1200px"
+          width="100%"
           display="flex"
           justifyContent="space-between"
           mx="auto"
@@ -26,11 +32,11 @@ export const Layout = () => {
               Add contacts
             </LinkStyled>
           </Box>
-          <Button colorScheme="purple" size="sm">
-            Logout
+          <Button onClick={handleClickLogin} colorScheme="purple" size="md">
+            Login
           </Button>
         </Box>
-        <Box as="main" width="1200px" mx="auto">
+        <Box as="main" maxWidth="1200px" width="100%" mx="auto">
           <Outlet />
         </Box>
       </Box>
