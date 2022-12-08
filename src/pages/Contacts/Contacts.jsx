@@ -35,7 +35,8 @@ export const Contacts = () => {
           <SkeletonPost />
         </SimpleGrid>
       )}
-      {<ContactList contacts={filteredContacts()} />}
+      {!data && !isLoading && <>some text</>}
+      {data && <ContactList contacts={filteredContacts()} />}
     </>
   );
 };
