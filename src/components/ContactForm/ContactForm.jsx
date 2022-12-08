@@ -80,7 +80,7 @@ export const ContactsForm = () => {
                 placeholder="Phone number"
               />
             </InputGroup>
-            <Button colorScheme="purple" size="md" type="submit">
+            <Button colorScheme="purple" size="md" mt="20px" type="submit">
               Add
             </Button>
           </FormControl>

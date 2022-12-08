@@ -1,14 +1,16 @@
 // import { Heading } from '@chakra-ui/react';
 
-import { Divider } from '@chakra-ui/react';
+import { Divider, SimpleGrid } from '@chakra-ui/react';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Filter } from 'components/Filter/Filter';
+import { SkeletonPost } from 'components/Loaders/SkeletonPost';
 import { useSelector } from 'react-redux';
 import { useGetContactsQuery } from 'redux/contacts/contactsApiSlice';
 import filterSelectors from 'redux/filter/filterSelectors';
 
 export const Contacts = () => {
-  const { data, isFetching, isLoading } = useGetContactsQuery();
+  const { data, isLoading } = useGetContactsQuery();
+
   const filter = useSelector(filterSelectors.getFilterValue);
 
   const filteredContacts = () => {
@@ -20,11 +22,19 @@ export const Contacts = () => {
   };
   return (
     <>
-      {/* <Heading size="md" my="20px">
-        Hello, this is contacts list...
-      </Heading> */}
       <Filter />
       <Divider mb="20px" mx="auto" w="70%" />
+      {isLoading && (
+        <SimpleGrid
+          spacing={4}
+          templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+        >
+          <SkeletonPost />
+          <SkeletonPost />
+          <SkeletonPost />
+          <SkeletonPost />
+        </SimpleGrid>
+      )}
       {<ContactList contacts={filteredContacts()} />}
     </>
   );

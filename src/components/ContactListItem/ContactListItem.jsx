@@ -14,11 +14,12 @@ import { useDeleteContactMutation } from 'redux/contacts/contactsApiSlice';
 export const ContactListItem = ({ contact = [] }) => {
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
   const toast = useToast();
+  const { id, name, number } = contact;
 
   const handleDeleteContact = () => {
-    deleteContact(contact.id);
+    deleteContact(id);
     return toast({
-      description: `${contact.name} has been deleted!`,
+      description: `${name} has been deleted!`,
       isClosable: true,
       status: 'success',
     });
@@ -41,11 +42,11 @@ export const ContactListItem = ({ contact = [] }) => {
                 alignItems="center"
                 fontSize="22px"
               >
-                A
+                {name.charAt(0)}
               </Box>
               <Box>
-                <Heading size="sm">{contact.name}</Heading>
-                <Text>{contact.number}</Text>
+                <Heading size="sm">{name}</Heading>
+                <Text>{number}</Text>
               </Box>
             </Flex>
             <IconButton
