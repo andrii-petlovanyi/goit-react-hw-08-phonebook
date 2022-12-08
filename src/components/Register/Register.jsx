@@ -10,14 +10,19 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   FormControl,
   FormLabel,
   Input,
   useToast,
+  WrapItem,
+  Text,
+  InputGroup,
+  InputRightElement,
+  Icon,
 } from '@chakra-ui/react';
 import { useSignUpUserMutation } from 'redux/auth/authApiSlice';
 import { register } from 'redux/auth/authSlice';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -31,6 +36,9 @@ export const Register = () => {
   });
   const toast = useToast();
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
   useEffect(() => {
     onOpen();
@@ -48,7 +56,7 @@ export const Register = () => {
   };
 
   const handleSubmitForm = async e => {
-    // e.preventDefault();
+    e.preventDefault();
     if (value.name === '' || value.email === '' || value.password === '')
       return toast({
         description: 'Please, fill all fields form...',
@@ -57,9 +65,7 @@ export const Register = () => {
       });
 
     try {
-      const checkedUser = await signUpUser(value, {
-        selectFromResult: ({ data }) => data.user,
-      });
+      const checkedUser = await signUpUser(value);
       dispatch(register(checkedUser));
       setValue({ name: '', email: '', password: '' });
       onClose();
@@ -86,53 +92,83 @@ export const Register = () => {
         <ModalContent py="20px">
           <ModalHeader>Please fill your data</ModalHeader>
           <ModalBody>
-            <FormControl py="20px">
-              <FormLabel>Name</FormLabel>
-              <Input
-                type="text"
-                name="name"
-                id="register_name"
-                value={value.nickname}
-                onChange={handleInputChange}
-              />
-              <FormLabel pt="20px">Email</FormLabel>
-              <Input
-                name="email"
-                type="email"
-                id="register_email"
-                value={value.email}
-                onChange={handleInputChange}
-              />
-              <FormLabel pt="20px">Password</FormLabel>
-              <Input
-                name="password"
-                type="password"
-                id="register_password"
-                value={value.password}
-                onChange={handleInputChange}
-              />
-            </FormControl>
+            <form onSubmit={handleSubmitForm}>
+              <FormControl py="20px" isRequired>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  id="register_name"
+                  value={value.nickname}
+                  onChange={handleInputChange}
+                />
+                <FormLabel pt="20px">Email</FormLabel>
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="example@gmail.com"
+                  id="register_email"
+                  value={value.email}
+                  onChange={handleInputChange}
+                />
+                <FormLabel pt="20px">Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="********"
+                    id="register_password"
+                    value={value.password}
+                    onChange={handleInputChange}
+                  />
+                  <InputRightElement width="3rem">
+                    <Button
+                      h="1.5rem"
+                      size="sm"
+                      onClick={handlePasswordVisibility}
+                    >
+                      {showPassword ? (
+                        <Icon as={ViewIcon} />
+                      ) : (
+                        <Icon as={ViewOffIcon} />
+                      )}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <WrapItem
+                display="flex"
+                alignItems="center"
+                justifyContent="space-around"
+                paddingTop="40px"
+              >
+                <Button
+                  maxW="120px"
+                  width="100%"
+                  type="submit"
+                  aria-label="Sign up"
+                  colorScheme="purple"
+                  size="md"
+                >
+                  Sign up
+                </Button>
+                <Text color="purple.800" fontWeight="700" fontSize="lg">
+                  or
+                </Text>
+                <Button
+                  maxW="120px"
+                  width="100%"
+                  onClick={handleClickLogin}
+                  aria-label="Sign in"
+                  colorScheme="purple"
+                  size="md"
+                >
+                  Sign in
+                </Button>
+              </WrapItem>
+            </form>
           </ModalBody>
-
-          <ModalFooter display="flex" justifyContent="space-around">
-            <Button
-              type="submit"
-              onClick={handleSubmitForm}
-              aria-label="Sign up"
-              colorScheme="purple"
-              size="md"
-            >
-              Sign up
-            </Button>
-            <Button
-              onClick={handleClickLogin}
-              aria-label="Sign in"
-              colorScheme="purple"
-              size="md"
-            >
-              Sign in
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

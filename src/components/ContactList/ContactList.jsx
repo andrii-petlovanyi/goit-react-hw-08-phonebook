@@ -1,21 +1,16 @@
 import { SimpleGrid } from '@chakra-ui/react';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
 
-export const ContactList = () => {
+export const ContactList = ({ contacts = [] }) => {
   return (
     <>
       <SimpleGrid
         spacing={4}
         templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
       >
-        <ContactListItem />
-        <ContactListItem />
-        <ContactListItem />
-        <ContactListItem />
-        <ContactListItem />
-        <ContactListItem />
-        <ContactListItem />
-        <ContactListItem />
+        {contacts.map(contact => (
+          <ContactListItem key={contact.id} contact={contact} />
+        ))}
       </SimpleGrid>
     </>
   );
