@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Divider, Text } from '@chakra-ui/react';
 
 export const Footer = () => {
   return (
@@ -14,7 +14,8 @@ export const Footer = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Text>by Andrii P.</Text>
+        <Divider />
+        <Text>© 2022 | Petlovanyi A.</Text>
       </Box>
     </>
   );
