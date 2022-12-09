@@ -38,7 +38,8 @@ export const AppBar = () => {
         display="flex"
         justifyContent="space-between"
         mx="auto"
-        padding="10px"
+        px="10px"
+        py="15px"
       >
         <Logo as={Link} to="/">
           PhoneBook

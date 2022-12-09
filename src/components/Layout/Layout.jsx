@@ -10,7 +10,7 @@ export const Layout = () => {
       <Box
         as="main"
         maxWidth="1200px"
-        height="82vh"
+        height="80vh"
         width="100%"
         mx="auto"
         px="15px"

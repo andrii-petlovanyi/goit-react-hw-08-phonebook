@@ -14,16 +14,19 @@ import {
   FormLabel,
   Input,
   useToast,
-  WrapItem,
   Text,
   InputGroup,
   InputRightElement,
   Icon,
+  // Image,
+  Divider,
+  Box,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import { logIn } from 'redux/auth/authSlice';
 import { useLogInUserMutation } from 'redux/auth/authApiSlice';
+// import loginPageContent from '../../images/content/loginPageContent.png';
 
 export const Login = () => {
   const [value, setValue] = useState({
@@ -99,15 +102,19 @@ export const Login = () => {
       <Modal isOpen={isOpen} onClose={handleClose} isCentered>
         <ModalOverlay />
         <ModalContent py="20px">
-          <ModalHeader>Please login</ModalHeader>
+          <ModalHeader fontSize="30px">Welcome back</ModalHeader>
           <ModalBody pb="20px">
+            {/* <Image src={loginPageContent} width="200px" mx="auto" /> */}
             <form onSubmit={handleSubmitForm}>
               <FormControl py="20px" isRequired>
+                <Divider width="70%" mx="auto" />
                 <FormLabel>Email</FormLabel>
                 <Input
                   name="email"
                   type="email"
                   placeholder="example@gmail.com"
+                  _placeholder={{ opacity: 0.6, color: 'purple.800' }}
+                  focusBorderColor="purple.600"
                   id="login_email"
                   value={value.email}
                   onChange={handleInputChange}
@@ -117,6 +124,8 @@ export const Login = () => {
                   <Input
                     name="password"
                     type={showPassword ? 'text' : 'password'}
+                    _placeholder={{ opacity: 0.6, color: 'purple.800' }}
+                    focusBorderColor="purple.600"
                     placeholder="********"
                     id="login_password"
                     value={value.password}
@@ -124,7 +133,7 @@ export const Login = () => {
                   />
                   <InputRightElement width="3rem">
                     <Button
-                      h="1.5rem"
+                      h="1.7rem"
                       size="sm"
                       onClick={handlePasswordVisibility}
                     >
@@ -137,7 +146,7 @@ export const Login = () => {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <WrapItem
+              <Box
                 display="flex"
                 justifyContent="space-around"
                 alignItems="center"
@@ -167,7 +176,7 @@ export const Login = () => {
                 >
                   Sign Up
                 </Button>
-              </WrapItem>
+              </Box>
             </form>
           </ModalBody>
         </ModalContent>

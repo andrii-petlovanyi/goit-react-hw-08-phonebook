@@ -14,15 +14,16 @@ import {
   FormLabel,
   Input,
   useToast,
-  WrapItem,
   Text,
   InputGroup,
   InputRightElement,
   Icon,
+  Box,
 } from '@chakra-ui/react';
 import { useSignUpUserMutation } from 'redux/auth/authApiSlice';
 import { register } from 'redux/auth/authSlice';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+// import registerPageContent from '../../images/content/registerPageContent.png';
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -90,8 +91,10 @@ export const Register = () => {
       <Modal isOpen={isOpen} onClose={handleClose} isCentered>
         <ModalOverlay />
         <ModalContent py="20px">
-          <ModalHeader>Please fill your data</ModalHeader>
-          <ModalBody>
+          <ModalHeader fontSize="30px">Create an account</ModalHeader>
+          <ModalBody pb="20px">
+            {/* <Image src={registerPageContent} width="100px" mx="auto" /> */}
+
             <form onSubmit={handleSubmitForm}>
               <FormControl py="20px" isRequired>
                 <FormLabel>Name</FormLabel>
@@ -99,6 +102,8 @@ export const Register = () => {
                   type="text"
                   name="name"
                   placeholder="Name"
+                  _placeholder={{ opacity: 0.6, color: 'purple.800' }}
+                  focusBorderColor="purple.600"
                   id="register_name"
                   value={value.nickname}
                   onChange={handleInputChange}
@@ -108,6 +113,8 @@ export const Register = () => {
                   name="email"
                   type="email"
                   placeholder="example@gmail.com"
+                  _placeholder={{ opacity: 0.6, color: 'purple.800' }}
+                  focusBorderColor="purple.600"
                   id="register_email"
                   value={value.email}
                   onChange={handleInputChange}
@@ -118,6 +125,8 @@ export const Register = () => {
                     name="password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="********"
+                    _placeholder={{ opacity: 0.6, color: 'purple.800' }}
+                    focusBorderColor="purple.600"
                     id="register_password"
                     value={value.password}
                     onChange={handleInputChange}
@@ -137,7 +146,7 @@ export const Register = () => {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <WrapItem
+              <Box
                 display="flex"
                 alignItems="center"
                 justifyContent="space-around"
@@ -166,7 +175,7 @@ export const Register = () => {
                 >
                   Sign in
                 </Button>
-              </WrapItem>
+              </Box>
             </form>
           </ModalBody>
         </ModalContent>
