@@ -24,8 +24,8 @@ import {
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-import { logIn } from 'redux/auth/authSlice';
-import { useLogInUserMutation } from 'redux/auth/authApiSlice';
+import { logIn } from '../../redux/auth/authSlice';
+import { useLogInUserMutation } from '../../redux/auth/authApiSlice';
 // import loginPageContent from '../../images/content/loginPageContent.png';
 
 export const Login = () => {

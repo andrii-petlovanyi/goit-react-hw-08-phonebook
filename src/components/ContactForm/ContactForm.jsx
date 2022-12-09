@@ -13,7 +13,7 @@ import {
 import {
   useGetContactsQuery,
   usePostContactMutation,
-} from 'redux/contacts/contactsApiSlice';
+} from '../../redux/contacts/contactsApiSlice';
 
 export const ContactsForm = () => {
   const toast = useToast();

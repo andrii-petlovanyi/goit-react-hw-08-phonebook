@@ -20,8 +20,8 @@ import {
   Icon,
   Box,
 } from '@chakra-ui/react';
-import { useSignUpUserMutation } from 'redux/auth/authApiSlice';
-import { register } from 'redux/auth/authSlice';
+import { useSignUpUserMutation } from '../../redux/auth/authApiSlice';
+import { register } from '../../redux/auth/authSlice';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 // import registerPageContent from '../../images/content/registerPageContent.png';
 

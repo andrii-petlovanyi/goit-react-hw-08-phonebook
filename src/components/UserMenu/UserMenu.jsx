@@ -8,12 +8,13 @@ import {
   Divider,
   Tag,
   TagLabel,
+  Tooltip,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLogOutUserMutation } from 'redux/auth/authApiSlice';
-import authSelectors from 'redux/auth/authSelectors';
-import { logOut } from 'redux/auth/authSlice';
+import { useLogOutUserMutation } from '../../redux/auth/authApiSlice';
+import authSelectors from '../../redux/auth/authSelectors';
+import { logOut } from '../../redux/auth/authSlice';
 import userAvatar from '../../images/avatar/userAvatar.jpg';
 
 export const UserMenu = () => {
@@ -22,6 +23,7 @@ export const UserMenu = () => {
   const dispatch = useDispatch();
   const userName = useSelector(authSelectors.getUserName);
   const userToken = useSelector(authSelectors.getUserToken);
+  const userEmail = useSelector(authSelectors.getUserEmail);
   const [logOutUser] = useLogOutUserMutation();
 
   const handleClickLogout = async () => {
@@ -39,18 +41,28 @@ export const UserMenu = () => {
   return (
     <>
       <Wrap>
-        <Tag
-          display="flex"
-          gap="10px"
-          size="lg"
+        <Tooltip
+          label={userEmail}
           colorScheme="purple"
-          borderRadius="full"
+          aria-label="user email"
+          closeDelay={500}
+          hasArrow
+          arrowSize={15}
         >
-          <Avatar size="sm" src={userAvatar}>
-            <AvatarBadge boxSize="1.25em" bg="green.500" />
-          </Avatar>
-          <TagLabel fontWeight="600">{userName}</TagLabel>
-        </Tag>
+          <Tag
+            display="flex"
+            gap="10px"
+            size="lg"
+            colorScheme="purple"
+            borderRadius="full"
+          >
+            <Avatar size="sm" src={userAvatar}>
+              <AvatarBadge boxSize="1.25em" bg="green.500" />
+            </Avatar>
+            <TagLabel fontWeight="600">{userName}</TagLabel>
+          </Tag>
+        </Tooltip>
+
         <Center height="auto">
           <Divider mx="15px" orientation="vertical" size="lg" />
         </Center>

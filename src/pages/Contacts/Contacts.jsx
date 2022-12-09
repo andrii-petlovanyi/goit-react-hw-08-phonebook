@@ -1,18 +1,20 @@
 // import { Heading } from '@chakra-ui/react';
 
 import { Divider, SimpleGrid } from '@chakra-ui/react';
-import { ContactList } from 'components/ContactList/ContactList';
-import { Filter } from 'components/Filter/Filter';
-import { SkeletonPost } from 'components/Loaders/SkeletonPost';
+import { ContactList } from '../../components/ContactList/ContactList';
+import { Filter } from '../../components/Filter/Filter';
+import { SkeletonPost } from '../../components/Loaders/SkeletonPost';
 import { useSelector } from 'react-redux';
-import { useGetContactsQuery } from 'redux/contacts/contactsApiSlice';
-import filterSelectors from 'redux/filter/filterSelectors';
+import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
+import filterSelectors from '../../redux/filter/filterSelectors';
 
 export const Contacts = () => {
   const { data, isLoading } = useGetContactsQuery();
 
   const filter = useSelector(filterSelectors.getFilterValue);
 
+
+  //
   const filteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
     if (!data) return;

@@ -9,7 +9,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
-import { useDeleteContactMutation } from 'redux/contacts/contactsApiSlice';
+import { useDeleteContactMutation } from '../../redux/contacts/contactsApiSlice';
 import { EditForm } from '../EditForm/EditForm';
 
 export const ContactListItem = ({ contact = [] }) => {
@@ -31,7 +31,7 @@ export const ContactListItem = ({ contact = [] }) => {
       <Card borderRadius="10px" width="100%">
         <CardBody>
           <Flex spacing="4">
-            <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+            <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
               <Box
                 bg="purple.600"
                 width="50px"
@@ -45,22 +45,24 @@ export const ContactListItem = ({ contact = [] }) => {
               >
                 {name.charAt(0)}
               </Box>
-              <Box>
+              <Box display="flex" gap="10px" flexDirection="column">
                 <Heading size="sm">{name}</Heading>
                 <Text>{number}</Text>
               </Box>
             </Flex>
-            <IconButton
-              onClick={handleDeleteContact}
-              variant="outline"
-              isLoading={isLoading ? true : false}
-              colorScheme="purple"
-              aria-label="Delete contact"
-              size="md"
-              fontSize="20px"
-              icon={<MdDeleteOutline />}
-            />
-            <EditForm contact={contact} />
+            <Box display="flex" gap="10px" flexDirection="column">
+              <IconButton
+                onClick={handleDeleteContact}
+                variant="outline"
+                isLoading={isLoading ? true : false}
+                colorScheme="purple"
+                aria-label="Delete contact"
+                size="md"
+                fontSize="20px"
+                icon={<MdDeleteOutline />}
+              />
+              <EditForm contact={contact} />
+            </Box>
           </Flex>
         </CardBody>
       </Card>

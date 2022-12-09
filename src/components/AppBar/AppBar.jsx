@@ -1,13 +1,13 @@
 import { Box, Button } from '@chakra-ui/react';
-import { Logo } from 'components/Layout/Layout.styled';
-import { NavBar } from 'components/NavBar/NavBar';
-import { UserMenu } from 'components/UserMenu/UserMenu';
+import { Logo } from '../Layout/Layout.styled';
+import { NavBar } from '../NavBar/NavBar';
+import { UserMenu } from '../UserMenu/UserMenu';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGetUserQuery } from 'redux/auth/authApiSlice';
-import authSelectors from 'redux/auth/authSelectors';
-import { refresh } from 'redux/auth/authSlice';
+import { useGetUserQuery } from '../../redux/auth/authApiSlice';
+import authSelectors from '../../redux/auth/authSelectors';
+import { refresh } from '../../redux/auth/authSlice';
 
 export const AppBar = () => {
   const navigate = useNavigate();

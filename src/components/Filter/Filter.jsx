@@ -1,8 +1,8 @@
 import { Search2Icon } from '@chakra-ui/icons';
 import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import filterSelectors from 'redux/filter/filterSelectors';
-import { setFilter } from 'redux/filter/filterSlice';
+import filterSelectors from '../../redux/filter/filterSelectors';
+import { setFilter } from '../../redux/filter/filterSlice';
 
 export const Filter = () => {
   const dispatch = useDispatch();

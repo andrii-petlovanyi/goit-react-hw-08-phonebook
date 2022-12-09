@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { store } from 'redux/store';
+import { store } from '../store';
 
 const contactsApiSlice = createApi({
   reducerPath: 'contactsApiSlice',
@@ -37,11 +37,12 @@ const contactsApiSlice = createApi({
       invalidatesTags: ['contacts'],
     }),
     patchContact: builder.mutation({
-      query: (contactId, patchedContact) => ({
+      query: ({ contactId, patchedContacts }) => ({
         url: `/contacts/${contactId}`,
         method: 'PATCH',
-        body: patchedContact,
+        body: patchedContacts,
       }),
+      invalidatesTags: ['contacts'], // subscription to updates
     }),
   }),
 });

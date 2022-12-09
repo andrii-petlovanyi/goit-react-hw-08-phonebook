@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 // import { lazy } from 'react';
-import { Layout } from 'components/Layout/Layout';
-import { Home } from 'pages/Home/Home';
-import { Contacts } from 'pages/Contacts/Contacts';
-import { AddContacts } from 'pages/AddContacts/AddContacts';
-import { NotFound } from 'pages/404/404';
-import { Login } from 'components/Login/Login';
-import { Register } from 'components/Register/Register';
+import { Layout } from './components/Layout/Layout';
+import { Home } from './pages/Home/Home';
+import { Contacts } from './pages/Contacts/Contacts';
+import { AddContacts } from './pages/AddContacts/AddContacts';
+import { NotFound } from './pages/404/404';
+import { Login } from './components/Login/Login';
+import { Register } from './components/Register/Register';
 
 export const App = () => {
   return (

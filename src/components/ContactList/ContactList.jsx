@@ -1,5 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react';
-import { ContactListItem } from 'components/ContactListItem/ContactListItem';
+import { ContactListItem } from '../ContactListItem/ContactListItem';
 
 export const ContactList = ({ contacts = [] }) => {
   return (
