@@ -8,6 +8,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
 import {
@@ -19,6 +20,11 @@ export const ContactForm = () => {
   const toast = useToast();
   const [postContact] = usePostContactMutation();
   const { data } = useGetContactsQuery();
+
+  const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
+  const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
+  const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
+
 
   const handleSubmitForm = e => {
     e.preventDefault();
@@ -55,14 +61,18 @@ export const ContactForm = () => {
               <InputLeftElement
                 pointerEvents="none"
                 children={
-                  <Icon color="purple.600" boxSize="6" as={MdAccountCircle} />
+                  <Icon
+                    color={backgroundBtn}
+                    boxSize="6"
+                    as={MdAccountCircle}
+                  />
                 }
               />
               <Input
                 name="name"
                 placeholder="Name"
-                _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                focusBorderColor="purple.600"
+                _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                focusBorderColor={backgroundBtn}
                 type="text"
               />
             </InputGroup>
@@ -70,17 +80,25 @@ export const ContactForm = () => {
             <InputGroup size="lg">
               <InputLeftElement
                 pointerEvents="none"
-                children={<PhoneIcon color="purple.600" />}
+                children={<PhoneIcon color={backgroundBtn} />}
               />
               <Input
                 type="tel"
                 name="number"
-                _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                focusBorderColor="purple.600"
+                _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                focusBorderColor={backgroundBtn}
                 placeholder="Phone number"
               />
             </InputGroup>
-            <Button colorScheme="purple" size="md" mt="20px" type="submit">
+            <Button
+              color="mainWhite"
+              bg={backgroundBtnSave}
+              _active={{ background: backgroundBtnSave }}
+              _hover={{ background: hoverBtn }}
+              size="md"
+              mt="20px"
+              type="submit"
+            >
               Add
             </Button>
           </FormControl>

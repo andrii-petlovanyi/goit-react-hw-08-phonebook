@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import { Link } from '@chakra-ui/react';
+import { Link, useColorModeValue } from '@chakra-ui/react';
 
 export const LinkStyled = styled(Link)`
   font-size: 18px;
   font-weight: 700;
 
   &.active {
-    color: #682687;
+    color: ${props => useColorModeValue('#553C9A', '#e2e2e2')};
   }
 `;
 

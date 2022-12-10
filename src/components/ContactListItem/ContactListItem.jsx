@@ -7,6 +7,7 @@ import {
   Flex,
   IconButton,
   useToast,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useDeleteContactMutation } from '../../redux/contacts/contactsApiSlice';
@@ -16,6 +17,14 @@ export const ContactListItem = ({ contact = [] }) => {
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
   const toast = useToast();
   const { id, name, number } = contact;
+
+  const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
+  const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
+  const backgroundAvatar = useColorModeValue('purple.600', 'darkBG');
+  const lightBackground = useColorModeValue(
+    'lightBtnBGWhite',
+    'lightBtnBGDark'
+  );
 
   const handleDeleteContact = () => {
     deleteContact(id);
@@ -33,11 +42,11 @@ export const ContactListItem = ({ contact = [] }) => {
           <Flex spacing="4">
             <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
               <Box
-                bg="purple.600"
-                width="50px"
-                height="50px"
+                width="55px"
+                height="55px"
                 borderRadius="50%"
-                color="#fff"
+                color="mainWhite"
+                bg={backgroundAvatar}
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -55,7 +64,15 @@ export const ContactListItem = ({ contact = [] }) => {
                 onClick={handleDeleteContact}
                 variant="outline"
                 isLoading={isLoading ? true : false}
-                colorScheme="purple"
+                color={backgroundBtn}
+                bg="none"
+                borderColor={backgroundBtn}
+                _active={{ color: backgroundBtn, borderColor: backgroundBtn }}
+                _hover={{
+                  color: hoverBtn,
+                  background: lightBackground,
+                  borderColor: hoverBtn,
+                }}
                 aria-label="Delete contact"
                 size="md"
                 fontSize="20px"

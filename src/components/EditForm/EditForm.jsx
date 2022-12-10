@@ -11,6 +11,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  useColorModeValue,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
@@ -22,6 +23,14 @@ export const EditForm = ({ contact = {} }) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [patchContact, { isLoading }] = usePatchContactMutation();
+
+  const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
+  const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
+  const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
+  const lightBackground = useColorModeValue(
+    'lightBtnBGWhite',
+    'lightBtnBGDark'
+  );
 
   const handleSubmitForm = e => {
     e.preventDefault();
@@ -44,11 +53,19 @@ export const EditForm = ({ contact = {} }) => {
         onClick={onOpen}
         variant="outline"
         isLoading={isLoading ? true : false}
-        colorScheme="purple"
+        bg="none"
+        color={backgroundBtn}
+        borderColor={backgroundBtn}
+        _active={{ color: backgroundBtn, borderColor: backgroundBtn }}
+        _hover={{
+          color: hoverBtn,
+          background: lightBackground,
+          borderColor: hoverBtn,
+        }}
         aria-label="Edit contact"
         size="md"
         fontSize="20px"
-        icon={<MdModeEdit />}
+        icon={<MdModeEdit bg={backgroundBtn} />}
       />
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -63,7 +80,7 @@ export const EditForm = ({ contact = {} }) => {
                     pointerEvents="none"
                     children={
                       <Icon
-                        color="purple.600"
+                        color={backgroundBtn}
                         boxSize="6"
                         as={MdAccountCircle}
                       />
@@ -75,8 +92,8 @@ export const EditForm = ({ contact = {} }) => {
                     id="contact_email"
                     defaultValue={contact.name}
                     placeholder="Name"
-                    _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                    focusBorderColor="purple.600"
+                    _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                    focusBorderColor={backgroundBtn}
                   />
                 </InputGroup>
               </FormControl>
@@ -85,15 +102,15 @@ export const EditForm = ({ contact = {} }) => {
                 <InputGroup size="lg">
                   <InputLeftElement
                     pointerEvents="none"
-                    children={<PhoneIcon color="purple.600" />}
+                    children={<PhoneIcon color={backgroundBtn} />}
                   />
                   <Input
                     type="tel"
                     name="number"
                     id="contact_email"
                     defaultValue={contact.number}
-                    _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                    focusBorderColor="purple.600"
+                    _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                    focusBorderColor={backgroundBtn}
                     placeholder="Phone number"
                   />
                 </InputGroup>
@@ -102,7 +119,10 @@ export const EditForm = ({ contact = {} }) => {
                 mt={4}
                 type="submit"
                 aria-label="Save contacts"
-                colorScheme="purple"
+                color="mainWhite"
+                bg={backgroundBtnSave}
+                _active={{ background: backgroundBtnSave }}
+                _hover={{ background: hoverBtn }}
                 size="md"
                 width="100%"
                 onClick={onClose}

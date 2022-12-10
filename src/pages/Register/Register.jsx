@@ -19,6 +19,7 @@ import {
   InputRightElement,
   Icon,
   Box,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useSignUpUserMutation } from '../../redux/auth/authApiSlice';
 import { register } from '../../redux/auth/authSlice';
@@ -40,6 +41,10 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const handlePasswordVisibility = () => setShowPassword(!showPassword);
+
+  const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
+  const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
+  const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
 
   useEffect(() => {
     onOpen();
@@ -102,8 +107,8 @@ const Register = () => {
                   type="text"
                   name="name"
                   placeholder="Name"
-                  _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                  focusBorderColor="purple.600"
+                  _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                  focusBorderColor={backgroundBtn}
                   id="register_name"
                   value={value.nickname}
                   onChange={handleInputChange}
@@ -113,8 +118,8 @@ const Register = () => {
                   name="email"
                   type="email"
                   placeholder="example@gmail.com"
-                  _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                  focusBorderColor="purple.600"
+                  _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                  focusBorderColor={backgroundBtn}
                   id="register_email"
                   value={value.email}
                   onChange={handleInputChange}
@@ -125,8 +130,8 @@ const Register = () => {
                     name="password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="********"
-                    _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                    focusBorderColor="purple.600"
+                    _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                    focusBorderColor={backgroundBtn}
                     id="register_password"
                     value={value.password}
                     onChange={handleInputChange}
@@ -157,12 +162,14 @@ const Register = () => {
                   width="100%"
                   type="submit"
                   aria-label="Sign up"
-                  colorScheme="purple"
+                  bg={backgroundBtnSave}
+                  _active={{ background: backgroundBtnSave }}
+                  _hover={{ background: hoverBtn }}
                   size="md"
                 >
                   Sign up
                 </Button>
-                <Text color="purple.800" fontWeight="700" fontSize="lg">
+                <Text color={backgroundBtn} fontWeight="700" fontSize="lg">
                   or
                 </Text>
                 <Button
@@ -170,7 +177,9 @@ const Register = () => {
                   width="100%"
                   onClick={handleClickLogin}
                   aria-label="Sign in"
-                  colorScheme="purple"
+                  bg={backgroundBtnSave}
+                  _active={{ background: backgroundBtnSave }}
+                  _hover={{ background: hoverBtn }}
                   size="md"
                 >
                   Sign in

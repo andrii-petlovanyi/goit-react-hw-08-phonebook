@@ -21,6 +21,7 @@ import {
   // Image,
   Divider,
   Box,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
@@ -40,6 +41,10 @@ const Login = () => {
   const [logInUser] = useLogInUserMutation();
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
+  const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
+  const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
 
   useEffect(() => {
     onOpen();
@@ -113,8 +118,8 @@ const Login = () => {
                   name="email"
                   type="email"
                   placeholder="example@gmail.com"
-                  _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                  focusBorderColor="purple.600"
+                  _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                  focusBorderColor={backgroundBtn}
                   id="login_email"
                   value={value.email}
                   onChange={handleInputChange}
@@ -124,8 +129,8 @@ const Login = () => {
                   <Input
                     name="password"
                     type={showPassword ? 'text' : 'password'}
-                    _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                    focusBorderColor="purple.600"
+                    _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                    focusBorderColor={backgroundBtn}
                     placeholder="********"
                     id="login_password"
                     value={value.password}
@@ -157,13 +162,15 @@ const Login = () => {
                   width="100%"
                   type="submit"
                   aria-label="Login user"
-                  colorScheme="purple"
+                  bg={backgroundBtnSave}
+                  _active={{ background: backgroundBtnSave }}
+                  _hover={{ background: hoverBtn }}
                   size="md"
                 >
                   Sign in
                 </Button>
 
-                <Text color="purple.800" fontWeight="700" fontSize="lg">
+                <Text color={backgroundBtn} fontWeight="700" fontSize="lg">
                   or
                 </Text>
                 <Button
@@ -171,7 +178,9 @@ const Login = () => {
                   width="100%"
                   onClick={handleClickSignUp}
                   aria-label="Sign up"
-                  colorScheme="purple"
+                  bg={backgroundBtnSave}
+                  _active={{ background: backgroundBtnSave }}
+                  _hover={{ background: hoverBtn }}
                   size="md"
                 >
                   Sign Up

@@ -9,6 +9,7 @@ import {
   Tag,
   TagLabel,
   Tooltip,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -43,7 +44,6 @@ export const UserMenu = () => {
       <Wrap>
         <Tooltip
           label={userEmail}
-          colorScheme="purple"
           aria-label="user email"
           closeDelay={500}
           hasArrow
@@ -53,23 +53,39 @@ export const UserMenu = () => {
             display="flex"
             gap="10px"
             size="lg"
-            colorScheme="purple"
+            backgroundColor={useColorModeValue('purple.100', 'teal.900')}
             borderRadius="full"
           >
             <Avatar size="sm" src={userAvatar}>
               <AvatarBadge boxSize="1.25em" bg="green.500" />
             </Avatar>
-            <TagLabel fontWeight="600">{userName}</TagLabel>
+            <TagLabel
+              color={useColorModeValue('#2e2e2e', 'mainWhite')}
+              fontWeight="600"
+            >
+              {userName}
+            </TagLabel>
           </Tag>
         </Tooltip>
 
         <Center height="auto">
-          <Divider mx="15px" orientation="vertical" size="lg" />
+          <Divider
+            opacity="0.5"
+            width="1px"
+            fontWeight="700"
+            mx="15px"
+            orientation="vertical"
+            size="lg"
+          />
         </Center>
         <Button
           onClick={handleClickLogout}
           aria-label="Logout"
-          colorScheme="purple"
+          bg={useColorModeValue('whiteBG', 'darkBG')}
+          _active
+          _hover={{
+            background: useColorModeValue('hoverWhite', 'hoverBlack'),
+          }}
           size="md"
         >
           Logout
