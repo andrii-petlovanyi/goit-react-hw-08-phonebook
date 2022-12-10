@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useDeleteContactMutation } from '../../redux/contacts/contactsApiSlice';
-import { EditForm } from '../EditForm/EditForm';
+import { EditForm } from '../index';
 
 export const ContactListItem = ({ contact = [] }) => {
   const [deleteContact, { isLoading }] = useDeleteContactMutation();

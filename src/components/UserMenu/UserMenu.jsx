@@ -28,6 +28,7 @@ export const UserMenu = () => {
 
   const handleClickLogout = async () => {
     const checkedUser = await logOutUser(userToken);
+    navigate('/');
     dispatch(logOut(checkedUser));
     toast({
       description: `Goodbye, ${userName}`,
@@ -35,7 +36,6 @@ export const UserMenu = () => {
       status: 'success',
       duration: 2000,
     });
-    navigate('/');
   };
 
   return (

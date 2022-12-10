@@ -1,5 +1,5 @@
 import { Breadcrumb, BreadcrumbItem } from '@chakra-ui/react';
-import { LinkStyled } from '../Layout/Layout.styled';
+import { LinkStyled } from '../../pages/Layout/Layout.styled';
 import { NavLink } from 'react-router-dom';
 
 export const NavBar = () => {

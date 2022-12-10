@@ -18,28 +18,28 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
+  // Image,
+  Divider,
   Box,
 } from '@chakra-ui/react';
-import { useSignUpUserMutation } from '../../redux/auth/authApiSlice';
-import { register } from '../../redux/auth/authSlice';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-// import registerPageContent from '../../images/content/registerPageContent.png';
 
-export const Register = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [signUpUser] = useSignUpUserMutation();
+import { logIn } from '../../redux/auth/authSlice';
+import { useLogInUserMutation } from '../../redux/auth/authApiSlice';
+// import loginPageContent from '../../images/content/loginPageContent.png';
+
+const Login = () => {
   const [value, setValue] = useState({
-    name: '',
     email: '',
     password: '',
   });
-  const toast = useToast();
+  const location = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const toast = useToast();
+  const [logInUser] = useLogInUserMutation();
   const [showPassword, setShowPassword] = useState(false);
-  const handlePasswordVisibility = () => setShowPassword(!showPassword);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     onOpen();
@@ -52,13 +52,9 @@ export const Register = () => {
     setValue(state => ({ ...state, [name]: value }));
   };
 
-  const handleClickLogin = () => {
-    navigate('/login');
-  };
-
   const handleSubmitForm = async e => {
     e.preventDefault();
-    if (value.name === '' || value.email === '' || value.password === '')
+    if (value.email === '' || value.password === '')
       return toast({
         description: 'Please, fill all fields form...',
         isClosable: true,
@@ -66,19 +62,34 @@ export const Register = () => {
       });
 
     try {
-      const checkedUser = await signUpUser(value);
-      dispatch(register(checkedUser));
-      setValue({ name: '', email: '', password: '' });
+      const checkedUser = await logInUser(value);
+
+      dispatch(logIn(checkedUser));
+      setValue({ email: '', password: '' });
+      navigate('/contacts');
       onClose();
-      navigate('/');
+      toast({
+        description: `Welcome, ${checkedUser.data.user.name} !`,
+        isClosable: true,
+        status: 'success',
+        duration: 3000,
+      });
     } catch (error) {
       toast({
         description:
-          'Something went wrong...Maybe, this user already exists...',
+          'Wrong username or e-mail. If you`re not signed up yet, you`re welcome to do it!',
         isClosable: true,
         status: 'error',
       });
     }
+  };
+
+  const handlePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleClickSignUp = () => {
+    navigate('/register');
   };
 
   const handleClose = () => {
@@ -91,31 +102,20 @@ export const Register = () => {
       <Modal isOpen={isOpen} onClose={handleClose} isCentered>
         <ModalOverlay />
         <ModalContent py="20px">
-          <ModalHeader fontSize="30px">Create an account</ModalHeader>
+          <ModalHeader fontSize="30px">Welcome back</ModalHeader>
           <ModalBody pb="20px">
-            {/* <Image src={registerPageContent} width="100px" mx="auto" /> */}
-
+            {/* <Image src={loginPageContent} width="200px" mx="auto" /> */}
             <form onSubmit={handleSubmitForm}>
               <FormControl py="20px" isRequired>
-                <FormLabel>Name</FormLabel>
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  _placeholder={{ opacity: 0.6, color: 'purple.800' }}
-                  focusBorderColor="purple.600"
-                  id="register_name"
-                  value={value.nickname}
-                  onChange={handleInputChange}
-                />
-                <FormLabel pt="20px">Email</FormLabel>
+                <Divider width="70%" mx="auto" />
+                <FormLabel>Email</FormLabel>
                 <Input
                   name="email"
                   type="email"
                   placeholder="example@gmail.com"
                   _placeholder={{ opacity: 0.6, color: 'purple.800' }}
                   focusBorderColor="purple.600"
-                  id="register_email"
+                  id="login_email"
                   value={value.email}
                   onChange={handleInputChange}
                 />
@@ -124,16 +124,16 @@ export const Register = () => {
                   <Input
                     name="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="********"
                     _placeholder={{ opacity: 0.6, color: 'purple.800' }}
                     focusBorderColor="purple.600"
-                    id="register_password"
+                    placeholder="********"
+                    id="login_password"
                     value={value.password}
                     onChange={handleInputChange}
                   />
                   <InputRightElement width="3rem">
                     <Button
-                      h="1.5rem"
+                      h="1.7rem"
                       size="sm"
                       onClick={handlePasswordVisibility}
                     >
@@ -148,32 +148,33 @@ export const Register = () => {
               </FormControl>
               <Box
                 display="flex"
-                alignItems="center"
                 justifyContent="space-around"
+                alignItems="center"
                 paddingTop="40px"
               >
                 <Button
                   maxW="120px"
                   width="100%"
                   type="submit"
-                  aria-label="Sign up"
+                  aria-label="Login user"
                   colorScheme="purple"
                   size="md"
                 >
-                  Sign up
+                  Sign in
                 </Button>
+
                 <Text color="purple.800" fontWeight="700" fontSize="lg">
                   or
                 </Text>
                 <Button
                   maxW="120px"
                   width="100%"
-                  onClick={handleClickLogin}
-                  aria-label="Sign in"
+                  onClick={handleClickSignUp}
+                  aria-label="Sign up"
                   colorScheme="purple"
                   size="md"
                 >
-                  Sign in
+                  Sign Up
                 </Button>
               </Box>
             </form>
@@ -183,3 +184,5 @@ export const Register = () => {
     </>
   );
 };
+
+export default Login;

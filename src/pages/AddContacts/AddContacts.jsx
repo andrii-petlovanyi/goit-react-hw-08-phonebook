@@ -6,13 +6,16 @@ import {
   SimpleGrid,
   WrapItem,
 } from '@chakra-ui/react';
-import { ContactsForm } from '../../components/ContactForm/ContactForm';
-import { ContactListItem } from '../../components/ContactListItem/ContactListItem';
-import { SkeletonPost } from '../../components/Loaders/SkeletonPost';
+import {
+  ContactForm,
+  ContactListItem,
+  SkeletonPost,
+} from '../../components/index';
+
 import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
 import addContactsContent from '../../images/content/addContactsContent.png';
 
-export const AddContacts = () => {
+const AddContacts = () => {
   const { data, isLoading } = useGetContactsQuery();
 
   const lastNumbers = () => {
@@ -33,7 +36,7 @@ export const AddContacts = () => {
           <Heading as="h1" size="md" mb="30px">
             Add new contacts
           </Heading>
-          <ContactsForm />
+          <ContactForm />
           <Image
             ml="auto"
             boxSize="200px"
@@ -70,3 +73,4 @@ export const AddContacts = () => {
     </>
   );
 };
+export default AddContacts;

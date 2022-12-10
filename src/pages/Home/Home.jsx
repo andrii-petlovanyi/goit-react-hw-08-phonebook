@@ -1,6 +1,6 @@
 import { Heading } from '@chakra-ui/react';
 
-export const Home = () => {
+const Home = () => {
   return (
     <>
       <Heading size="md" my="20px">
@@ -9,3 +9,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

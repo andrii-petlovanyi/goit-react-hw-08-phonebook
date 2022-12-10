@@ -1,19 +1,17 @@
 import { Box, Button } from '@chakra-ui/react';
-import { Logo } from '../Layout/Layout.styled';
-import { NavBar } from '../NavBar/NavBar';
-import { UserMenu } from '../UserMenu/UserMenu';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGetUserQuery } from '../../redux/auth/authApiSlice';
 import authSelectors from '../../redux/auth/authSelectors';
 import { refresh } from '../../redux/auth/authSlice';
+import { Logo } from '../../pages/Layout/Layout.styled';
+import { NavBar, UserMenu } from '../index';
 
 export const AppBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const token = useSelector(authSelectors.getUserToken);
 
   const { data } = useGetUserQuery(token, {
@@ -25,41 +23,46 @@ export const AppBar = () => {
     // eslint-disable-next-line
   }, [data]);
 
+  const { isLoading } = useGetUserQuery();
+  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+
   const handleClickLogin = () => {
     navigate('/login');
   };
 
   return (
     <>
-      <Box
-        as="header"
-        maxWidth="1200px"
-        width="100%"
-        display="flex"
-        justifyContent="space-between"
-        mx="auto"
-        px="10px"
-        py="15px"
-      >
-        <Logo as={Link} to="/">
-          PhoneBook
-        </Logo>
-        {isLoggedIn ? (
-          <>
-            <NavBar />
-            <UserMenu />
-          </>
-        ) : (
-          <Button
-            onClick={handleClickLogin}
-            aria-label="Sign in"
-            colorScheme="purple"
-            size="md"
-          >
-            Sign in
-          </Button>
-        )}
-      </Box>
+      {!isLoading && (
+        <Box
+          as="header"
+          maxWidth="1200px"
+          width="100%"
+          display="flex"
+          justifyContent="space-between"
+          mx="auto"
+          px="10px"
+          py="15px"
+        >
+          <Logo as={Link} to="/">
+            PhoneBook
+          </Logo>
+          {isLoggedIn ? (
+            <>
+              <NavBar />
+              <UserMenu />
+            </>
+          ) : (
+            <Button
+              onClick={handleClickLogin}
+              aria-label="Sign in"
+              colorScheme="purple"
+              size="md"
+            >
+              Sign in
+            </Button>
+          )}
+        </Box>
+      )}
     </>
   );
 };

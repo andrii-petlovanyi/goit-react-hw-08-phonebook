@@ -2,7 +2,7 @@ import { Box, Image, Text } from '@chakra-ui/react';
 
 import errorPageContent from '../../images/content/errorPageContent.png';
 
-export const NotFound = () => {
+const NotFound = () => {
   return (
     <>
       <Box
@@ -39,3 +39,5 @@ export const NotFound = () => {
     </>
   );
 };
+
+export default NotFound;

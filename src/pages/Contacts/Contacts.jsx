@@ -8,11 +8,10 @@ import { useSelector } from 'react-redux';
 import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
 import filterSelectors from '../../redux/filter/filterSelectors';
 
-export const Contacts = () => {
+const Contacts = () => {
   const { data, isLoading } = useGetContactsQuery();
 
   const filter = useSelector(filterSelectors.getFilterValue);
-
 
   //
   const filteredContacts = () => {
@@ -42,3 +41,5 @@ export const Contacts = () => {
     </>
   );
 };
+
+export default Contacts;

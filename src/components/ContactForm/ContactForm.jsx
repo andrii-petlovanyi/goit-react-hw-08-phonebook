@@ -15,7 +15,7 @@ import {
   usePostContactMutation,
 } from '../../redux/contacts/contactsApiSlice';
 
-export const ContactsForm = () => {
+export const ContactForm = () => {
   const toast = useToast();
   const [postContact] = usePostContactMutation();
   const { data } = useGetContactsQuery();
@@ -29,7 +29,7 @@ export const ContactsForm = () => {
       return toast({
         description: `${name} is already in contacts`,
         isClosable: true,
-        status: 'success',
+        status: 'error',
       });
     }
     postContact({ name, number });
