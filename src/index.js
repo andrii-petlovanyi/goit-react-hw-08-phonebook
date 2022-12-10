@@ -3,12 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import {
-  ChakraProvider,
-  ColorModeProvider,
-  ColorModeScript,
-  CSSReset,
-} from '@chakra-ui/react';
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { store, persistor } from './redux/store';
 import { App } from './App';
 import './index.css';
