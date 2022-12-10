@@ -7,10 +7,6 @@ const PrivateRoute = ({ children }) => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
   const { isLoading, isFetching } = useGetUserQuery();
 
-  // const isLoader = isLoggedIn ? !isLoading : false;
-
-  // return isLoader ? children : <Navigate to="/login" />;
-
   if (isLoggedIn && !isLoading && !isFetching) {
     return children;
   }

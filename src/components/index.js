@@ -7,6 +7,7 @@ export { EditForm } from './EditForm/EditForm';
 export { Filter } from './Filter/Filter';
 export { Footer } from './Footer/Footer';
 export { SkeletonPost } from './Loaders/SkeletonPost';
+export { SkeletonAppBar } from './Loaders/SkeletonAppBar';
 export { UserMenu } from './UserMenu/UserMenu';
 
 export { NavBar } from './NavBar/NavBar';

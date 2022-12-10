@@ -32,37 +32,37 @@ export const AppBar = () => {
 
   return (
     <>
-      {!isLoading && (
-        <Box
-          as="header"
-          maxWidth="1200px"
-          width="100%"
-          display="flex"
-          justifyContent="space-between"
-          mx="auto"
-          px="10px"
-          py="15px"
-        >
-          <Logo as={Link} to="/">
-            PhoneBook
-          </Logo>
-          {isLoggedIn ? (
-            <>
-              <NavBar />
-              <UserMenu />
-            </>
-          ) : (
-            <Button
-              onClick={handleClickLogin}
-              aria-label="Sign in"
-              colorScheme="purple"
-              size="md"
-            >
-              Sign in
-            </Button>
-          )}
-        </Box>
-      )}
+      <Box
+        as="header"
+        maxWidth="1200px"
+        width="100%"
+        height="70px"
+        display="flex"
+        justifyContent="space-between"
+        mx="auto"
+        px="10px"
+        py="15px"
+      >
+        <Logo as={Link} to="/">
+          PhoneBook
+        </Logo>
+        {isLoggedIn && !isLoading && (
+          <>
+            <NavBar />
+            <UserMenu />
+          </>
+        )}
+        {!isLoggedIn && !isLoading && (
+          <Button
+            onClick={handleClickLogin}
+            aria-label="Sign in"
+            colorScheme="purple"
+            size="md"
+          >
+            Sign in
+          </Button>
+        )}
+      </Box>
     </>
   );
 };
