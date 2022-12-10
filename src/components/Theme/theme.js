@@ -1,6 +1,12 @@
 import { extendTheme } from '@chakra-ui/react';
 import { mode } from '@chakra-ui/theme-tools';
 
+const config = {
+  initialColorMode: 'dark',
+  useSystemColorMode: true,
+};
+
+
 const colors = {
   mainWhite: '#f9f9f9',
   mainDark: '#202023',
@@ -19,11 +25,6 @@ const styles = {
       bg: mode('mainWhite', 'mainDark')(props),
     },
   }),
-};
-
-const config = {
-  initialColorMode: 'light',
-  useSystemColorMode: false,
 };
 
 const components = {

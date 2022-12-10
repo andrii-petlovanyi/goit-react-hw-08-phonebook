@@ -1,4 +1,9 @@
-import { Box, Button, useColorModeValue } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  useBreakpointValue,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,7 +11,7 @@ import { useGetUserQuery } from '../../redux/auth/authApiSlice';
 import authSelectors from '../../redux/auth/authSelectors';
 import { refresh } from '../../redux/auth/authSlice';
 import { Logo } from '../../pages/Layout/Layout.styled';
-import { NavBar, UserMenu } from '../index';
+import { NavBar, UserMenu, MobileMenu } from '../index';
 import { ToggleColorMode } from '../Theme/toggleColorMode';
 
 export const AppBar = () => {
@@ -14,6 +19,10 @@ export const AppBar = () => {
   const dispatch = useDispatch();
 
   const token = useSelector(authSelectors.getUserToken);
+  const isDesktop = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
   const backgroundBtn = useColorModeValue('whiteBG', 'darkBG');
   const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
 
@@ -44,38 +53,67 @@ export const AppBar = () => {
         justifyContent="space-between"
         mx="auto"
         py="20px"
+        px="15px"
       >
         <Logo as={Link} to="/">
           PhoneBook
         </Logo>
+
         {isLoggedIn && !isLoading && (
           <>
-            <NavBar />
-            <UserMenu />
+            {isDesktop ? (
+              <>
+                <NavBar />
+                <UserMenu />
+              </>
+            ) : (
+              <Box
+                display="flex"
+                gap="10px"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <ToggleColorMode />
+                <MobileMenu />
+              </Box>
+            )}
           </>
         )}
+
         {!isLoggedIn && !isLoading && (
           <>
-            <Box
-              display="flex"
-              gap="10px"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <ToggleColorMode />
-              <Button
-                onClick={handleClickLogin}
-                aria-label="Sign in"
-                size="md"
-                bg={backgroundBtn}
-                _active
-                _hover={{
-                  background: hoverBtn,
-                }}
+            {isDesktop ? (
+              <Box
+                display="flex"
+                gap="10px"
+                justifyContent="center"
+                alignItems="center"
               >
-                Sign in
-              </Button>
-            </Box>
+                <ToggleColorMode />
+                <Button
+                  onClick={handleClickLogin}
+                  aria-label="Sign in"
+                  size="md"
+                  bg={backgroundBtn}
+                  _active
+                  _hover={{
+                    background: hoverBtn,
+                  }}
+                >
+                  Sign in
+                </Button>
+              </Box>
+            ) : (
+              <Box
+                display="flex"
+                gap="10px"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <ToggleColorMode />
+                <MobileMenu />
+              </Box>
+            )}
           </>
         )}
       </Box>
