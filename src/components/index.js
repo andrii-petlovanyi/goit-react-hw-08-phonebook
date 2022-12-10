@@ -6,10 +6,10 @@ export { ContactListItem } from './ContactListItem/ContactListItem';
 export { EditForm } from './EditForm/EditForm';
 export { Filter } from './Filter/Filter';
 export { Footer } from './Footer/Footer';
+export { UserMenu } from './UserMenu/UserMenu';
+export { NavBar } from './NavBar/NavBar';
+export { Section } from './Section/Section';
+
 export { SkeletonPost } from './Loaders/SkeletonPost';
 export { SkeletonAppBar } from './Loaders/SkeletonAppBar';
-export { UserMenu } from './UserMenu/UserMenu';
-
-export { NavBar } from './NavBar/NavBar';
-
 // export const Layout = lazy(() => import('./Home/Home'));
