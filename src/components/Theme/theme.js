@@ -32,7 +32,7 @@ const components = {
       color: mode('accentWhite', 'teal.600')(props),
       textUnderlineOffset: 3,
       _hover: {
-        color: mode('accentWhiteHover', 'teal.300')(props),
+        color: mode('purple.600', 'teal.300')(props),
       },
     }),
   },

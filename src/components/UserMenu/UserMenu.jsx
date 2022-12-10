@@ -10,6 +10,7 @@ import {
   TagLabel,
   Tooltip,
   useColorModeValue,
+  Box,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,7 @@ import { useLogOutUserMutation } from '../../redux/auth/authApiSlice';
 import authSelectors from '../../redux/auth/authSelectors';
 import { logOut } from '../../redux/auth/authSlice';
 import userAvatar from '../../images/avatar/userAvatar.jpg';
+import { ToggleColorMode } from '../Theme/toggleColorMode';
 
 export const UserMenu = () => {
   const toast = useToast();
@@ -78,18 +80,26 @@ export const UserMenu = () => {
             size="lg"
           />
         </Center>
-        <Button
-          onClick={handleClickLogout}
-          aria-label="Logout"
-          bg={useColorModeValue('whiteBG', 'darkBG')}
-          _active
-          _hover={{
-            background: useColorModeValue('hoverWhite', 'hoverBlack'),
-          }}
-          size="md"
+        <Box
+          display="flex"
+          gap="10px"
+          justifyContent="center"
+          alignItems="center"
         >
-          Logout
-        </Button>
+          <ToggleColorMode />
+          <Button
+            onClick={handleClickLogout}
+            aria-label="Logout"
+            bg={useColorModeValue('whiteBG', 'darkBG')}
+            _active
+            _hover={{
+              background: useColorModeValue('hoverWhite', 'hoverBlack'),
+            }}
+            size="md"
+          >
+            Logout
+          </Button>
+        </Box>
       </Wrap>
     </>
   );

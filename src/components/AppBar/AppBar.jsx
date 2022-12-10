@@ -53,7 +53,6 @@ export const AppBar = () => {
           <>
             <NavBar />
             <UserMenu />
-            <ToggleColorMode />
           </>
         )}
         {!isLoggedIn && !isLoading && (
