@@ -87,6 +87,7 @@ export const UserMenu = () => {
           alignItems="center"
         >
           <ToggleColorMode />
+
           <Button
             onClick={handleClickLogout}
             aria-label="Logout"

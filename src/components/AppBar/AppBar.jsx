@@ -39,12 +39,11 @@ export const AppBar = () => {
         as="header"
         maxWidth="1200px"
         width="100%"
-        height="70px"
+        height="80px"
         display="flex"
         justifyContent="space-between"
         mx="auto"
-        px="10px"
-        py="15px"
+        py="20px"
       >
         <Logo as={Link} to="/">
           PhoneBook
