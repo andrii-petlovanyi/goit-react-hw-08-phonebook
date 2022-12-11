@@ -10,7 +10,7 @@ const Layout = () => {
       <Box
         as="main"
         maxWidth="1200px"
-        height="80vh"
+        minHeight="80vh"
         width="100%"
         mx="auto"
         px="15px"

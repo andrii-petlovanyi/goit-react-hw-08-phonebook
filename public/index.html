@@ -77,5 +77,15 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      const theme = localStorage.getItem('chakra-ui-color-mode') || 'dark';
+      document.body.style.backgroundColor =
+        theme === 'dark' ? '#202023' : '#f9f9f9';
+      window.onload = function () {
+        setTimeout(function () {
+          document.body.style.backgroundColor = '';
+        }, 100);
+      };
+    </script>
   </body>
 </html>

@@ -9,6 +9,7 @@ export { Footer } from './Footer/Footer';
 export { UserMenu } from './UserMenu/UserMenu';
 export { NavBar } from './NavBar/NavBar';
 export { Section } from './Section/Section';
+export { ToggleColorMode } from './Theme/toggleColorMode';
 
 export { SkeletonPost } from './Loaders/SkeletonPost';
 export { SkeletonAppBar } from './Loaders/SkeletonAppBar';
