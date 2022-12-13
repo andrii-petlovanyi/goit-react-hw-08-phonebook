@@ -31,7 +31,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [signUpUser] = useSignUpUserMutation();
+  const [signUpUser, { isLoading }] = useSignUpUserMutation();
   const [value, setValue] = useState({
     name: '',
     email: '',
@@ -67,6 +67,13 @@ const Register = () => {
     if (value.name === '' || value.email === '' || value.password === '')
       return toast({
         description: 'Please, fill all fields form...',
+        isClosable: true,
+        status: 'error',
+      });
+
+    if (value.password.length < 7)
+      return toast({
+        description: 'Password length must be more than 7 characters...',
         isClosable: true,
         status: 'error',
       });
@@ -128,6 +135,7 @@ const Register = () => {
                   <Input
                     name="password"
                     type={showPassword ? 'text' : 'password'}
+                    min={7}
                     placeholder="********"
                     _placeholder={{ opacity: 0.6, color: backgroundBtn }}
                     focusBorderColor={backgroundBtn}
@@ -158,6 +166,7 @@ const Register = () => {
               >
                 <ButtonFrame>
                   <Button
+                    isLoading={isLoading ? true : false}
                     width="100%"
                     type="submit"
                     aria-label="Sign up"

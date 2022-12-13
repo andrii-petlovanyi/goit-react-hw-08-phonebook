@@ -38,7 +38,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
-  const [logInUser] = useLogInUserMutation();
+  const [logInUser, { isLoading }] = useLogInUserMutation();
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -158,6 +158,7 @@ const Login = () => {
               >
                 <ButtonFrame>
                   <Button
+                    isLoading={isLoading ? true : false}
                     width="100%"
                     type="submit"
                     aria-label="Login user"
