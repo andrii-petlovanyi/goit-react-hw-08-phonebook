@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useDeleteContactMutation } from '../../redux/contacts/contactsApiSlice';
-import { EditForm } from '../index';
+import { ButtonFrame, CardFrame, EditForm } from '../index';
 
 export const ContactListItem = ({ contact = [] }) => {
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
@@ -37,52 +37,59 @@ export const ContactListItem = ({ contact = [] }) => {
 
   return (
     <>
-      <Card borderRadius="10px" width="100%">
-        <CardBody>
-          <Flex spacing="4">
-            <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
-              <Box
-                width="55px"
-                height="55px"
-                borderRadius="50%"
-                color="mainWhite"
-                bg={backgroundAvatar}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                fontSize="22px"
-              >
-                {name.charAt(0)}
-              </Box>
+      <CardFrame>
+        <Card borderRadius="10px" width="100%">
+          <CardBody>
+            <Flex spacing="4">
+              <Flex flex="1" gap="5" alignItems="center" flexWrap="wrap">
+                <Box
+                  width="55px"
+                  height="55px"
+                  borderRadius="50%"
+                  color="mainWhite"
+                  bg={backgroundAvatar}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  fontSize="22px"
+                >
+                  {name.charAt(0)}
+                </Box>
+                <Box display="flex" gap="10px" flexDirection="column">
+                  <Heading size="sm">{name}</Heading>
+                  <Text>{number}</Text>
+                </Box>
+              </Flex>
               <Box display="flex" gap="10px" flexDirection="column">
-                <Heading size="sm">{name}</Heading>
-                <Text>{number}</Text>
+                <ButtonFrame>
+                  <IconButton
+                    onClick={handleDeleteContact}
+                    variant="outline"
+                    isLoading={isLoading ? true : false}
+                    color={backgroundBtn}
+                    bg="none"
+                    borderColor={backgroundBtn}
+                    _active={{
+                      color: backgroundBtn,
+                      borderColor: backgroundBtn,
+                    }}
+                    _hover={{
+                      color: hoverBtn,
+                      background: lightBackground,
+                      borderColor: hoverBtn,
+                    }}
+                    aria-label="Delete contact"
+                    size="md"
+                    fontSize="20px"
+                    icon={<MdDeleteOutline />}
+                  />
+                </ButtonFrame>
+                <EditForm contact={contact} />
               </Box>
             </Flex>
-            <Box display="flex" gap="10px" flexDirection="column">
-              <IconButton
-                onClick={handleDeleteContact}
-                variant="outline"
-                isLoading={isLoading ? true : false}
-                color={backgroundBtn}
-                bg="none"
-                borderColor={backgroundBtn}
-                _active={{ color: backgroundBtn, borderColor: backgroundBtn }}
-                _hover={{
-                  color: hoverBtn,
-                  background: lightBackground,
-                  borderColor: hoverBtn,
-                }}
-                aria-label="Delete contact"
-                size="md"
-                fontSize="20px"
-                icon={<MdDeleteOutline />}
-              />
-              <EditForm contact={contact} />
-            </Box>
-          </Flex>
-        </CardBody>
-      </Card>
+          </CardBody>
+        </Card>
+      </CardFrame>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { Box, Divider, Text } from '@chakra-ui/react';
-import { Section } from '../Section/Section';
+import { Section } from '../Animations/SectionFrame';
 
 export const Footer = () => {
   return (

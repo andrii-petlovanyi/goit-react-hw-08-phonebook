@@ -1,4 +1,11 @@
-import { Box, Divider, Heading, Image, SimpleGrid } from '@chakra-ui/react';
+import {
+  Box,
+  Divider,
+  Heading,
+  Image,
+  SimpleGrid,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import {
   ContactForm,
   ContactListItem,
@@ -21,11 +28,8 @@ const AddContacts = () => {
 
   return (
     <>
-      {/* <Heading size="md" my="20px">
-        at this place will be page add contacts...
-      </Heading> */}
       <Divider orientation="horizontal" mt="20px" mx="auto" maxW="80%" />
-      <SimpleGrid my="30px" columns={2} spacingX="40px" spacingY="20px">
+      <SimpleGrid my="30px" columns={[1, 1, 2]} spacingX="40px" spacingY="20px">
         <Box textAlign="center">
           <Section delay={0.1}>
             <Heading as="h1" size="md" mb="35px">
@@ -37,6 +41,7 @@ const AddContacts = () => {
           </Section>
           <Section delay={0.3}>
             <Image
+              display={['none', 'none', 'flex']}
               ml="auto"
               boxSize="200px"
               objectFit="cover"
@@ -44,16 +49,29 @@ const AddContacts = () => {
               alt="Grogu help you add contacts"
             />
           </Section>
+          <Box
+            display={['flex', 'flex', 'none']}
+            mt="50px"
+            mb="30px"
+            mx="auto"
+            maxW="400px"
+            borderBottom={`2px solid ${useColorModeValue(
+              '#2e2e2e',
+              '#285E61'
+            )}`}
+          ></Box>
         </Box>
+
         <Box
           display="flex"
           gap="10px"
           flexDirection="column"
-          maxW="400px"
+          mx={['auto', 'auto', 0]}
+          maxW="450px"
           width="100%"
         >
           <Section delay={0.4}>
-            <Heading as="h1" size="md">
+            <Heading as="h1" size="md" textAlign="center">
               {data ? 'Last added contacts' : 'No added contacts'}
             </Heading>
           </Section>
@@ -62,7 +80,7 @@ const AddContacts = () => {
               display="flex"
               gap="20px"
               flexDirection="column"
-              maxW="400px"
+              maxW="450px"
               width="100%"
             >
               {isLoading && (

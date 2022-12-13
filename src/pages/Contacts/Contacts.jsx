@@ -1,9 +1,5 @@
-// import { Heading } from '@chakra-ui/react';
-
 import { Divider, SimpleGrid } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
 import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
-import filterSelectors from '../../redux/filter/filterSelectors';
 
 import {
   Section,
@@ -15,16 +11,6 @@ import {
 const Contacts = () => {
   const { data, isLoading } = useGetContactsQuery();
 
-  const filter = useSelector(filterSelectors.getFilterValue);
-
-  //
-  const filteredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    if (!data) return;
-    return Object.values(data).filter(contact => {
-      return contact.name.toLowerCase().includes(normalizedFilter);
-    });
-  };
   return (
     <>
       <Section delay={0.1}>
@@ -43,8 +29,8 @@ const Contacts = () => {
             <SkeletonPost />
           </SimpleGrid>
         )}
-        {!data && !isLoading && <>some text</>}
-        {data && <ContactList contacts={filteredContacts()} />}
+        {!data?.length && !isLoading && <>No contacts</>}
+        {data?.length > 0 && !isLoading && <ContactList />}
       </Section>
     </>
   );

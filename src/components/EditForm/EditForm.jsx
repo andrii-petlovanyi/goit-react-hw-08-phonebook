@@ -18,6 +18,7 @@ import {
 import { usePatchContactMutation } from '../../redux/contacts/contactsApiSlice';
 import { MdAccountCircle, MdModeEdit } from 'react-icons/md';
 import { PhoneIcon } from '@chakra-ui/icons';
+import { ButtonFrame } from '../Animations/ButtonFrame';
 
 export const EditForm = ({ contact = {} }) => {
   const toast = useToast();
@@ -49,24 +50,26 @@ export const EditForm = ({ contact = {} }) => {
 
   return (
     <>
-      <IconButton
-        onClick={onOpen}
-        variant="outline"
-        isLoading={isLoading ? true : false}
-        bg="none"
-        color={backgroundBtn}
-        borderColor={backgroundBtn}
-        _active={{ color: backgroundBtn, borderColor: backgroundBtn }}
-        _hover={{
-          color: hoverBtn,
-          background: lightBackground,
-          borderColor: hoverBtn,
-        }}
-        aria-label="Edit contact"
-        size="md"
-        fontSize="20px"
-        icon={<MdModeEdit bg={backgroundBtn} />}
-      />
+      <ButtonFrame>
+        <IconButton
+          onClick={onOpen}
+          variant="outline"
+          isLoading={isLoading ? true : false}
+          bg="none"
+          color={backgroundBtn}
+          borderColor={backgroundBtn}
+          _active={{ color: backgroundBtn, borderColor: backgroundBtn }}
+          _hover={{
+            color: hoverBtn,
+            background: lightBackground,
+            borderColor: hoverBtn,
+          }}
+          aria-label="Edit contact"
+          size="md"
+          fontSize="20px"
+          icon={<MdModeEdit bg={backgroundBtn} />}
+        />
+      </ButtonFrame>
 
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
@@ -115,20 +118,23 @@ export const EditForm = ({ contact = {} }) => {
                   />
                 </InputGroup>
               </FormControl>
-              <Button
-                mt={4}
-                type="submit"
-                aria-label="Save contacts"
-                color="mainWhite"
-                bg={backgroundBtnSave}
-                _active={{ background: backgroundBtnSave }}
-                _hover={{ background: hoverBtn }}
-                size="md"
-                width="100%"
-                onClick={onClose}
-              >
-                Save
-              </Button>
+
+              <ButtonFrame>
+                <Button
+                  width="100%"
+                  mt={4}
+                  type="submit"
+                  aria-label="Save contacts"
+                  color="mainWhite"
+                  bg={backgroundBtnSave}
+                  _active={{ background: backgroundBtnSave }}
+                  _hover={{ background: hoverBtn }}
+                  size="md"
+                  onClick={onClose}
+                >
+                  Save
+                </Button>
+              </ButtonFrame>
             </form>
           </ModalBody>
         </ModalContent>

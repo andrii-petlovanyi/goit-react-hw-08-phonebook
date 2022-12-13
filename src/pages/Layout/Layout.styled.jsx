@@ -11,6 +11,7 @@ export const LinkStyled = styled(Link)`
 `;
 
 export const MobileLinkStyled = styled(Link)`
+  overflow-wrap: break-word;
   font-size: 32px;
   font-weight: 700;
 

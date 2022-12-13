@@ -19,6 +19,7 @@ import authSelectors from '../../redux/auth/authSelectors';
 import { logOut } from '../../redux/auth/authSlice';
 import userAvatar from '../../images/avatar/userAvatar.jpg';
 import { ToggleColorMode } from '../Theme/toggleColorMode';
+import { ButtonFrame } from '../Animations/ButtonFrame';
 
 export const UserMenu = () => {
   const toast = useToast();
@@ -87,19 +88,20 @@ export const UserMenu = () => {
           alignItems="center"
         >
           <ToggleColorMode />
-
-          <Button
-            onClick={handleClickLogout}
-            aria-label="Logout"
-            bg={useColorModeValue('whiteBG', 'darkBG')}
-            _active
-            _hover={{
-              background: useColorModeValue('hoverWhite', 'hoverBlack'),
-            }}
-            size="md"
-          >
-            Logout
-          </Button>
+          <ButtonFrame>
+            <Button
+              onClick={handleClickLogout}
+              aria-label="Logout"
+              bg={useColorModeValue('whiteBG', 'darkBG')}
+              _active
+              _hover={{
+                background: useColorModeValue('hoverWhite', 'hoverBlack'),
+              }}
+              size="md"
+            >
+              Logout
+            </Button>
+          </ButtonFrame>
         </Box>
       </Wrap>
     </>

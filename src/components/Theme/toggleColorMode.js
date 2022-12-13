@@ -6,7 +6,7 @@ export const ToggleColorMode = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const isMode = colorMode === 'light';
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence initial={false} mode="wait">
       <motion.div
         style={{ display: 'inline-block' }}
         key={useColorModeValue('Light', 'Dark')}

@@ -18,16 +18,16 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
-  // Image,
   Divider,
   Box,
   useColorModeValue,
+  Link,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import { logIn } from '../../redux/auth/authSlice';
 import { useLogInUserMutation } from '../../redux/auth/authApiSlice';
-// import loginPageContent from '../../images/content/loginPageContent.png';
+import { ButtonFrame } from '../../components';
 
 const Login = () => {
   const [value, setValue] = useState({
@@ -109,7 +109,6 @@ const Login = () => {
         <ModalContent py="20px">
           <ModalHeader fontSize="30px">Welcome back</ModalHeader>
           <ModalBody pb="20px">
-            {/* <Image src={loginPageContent} width="200px" mx="auto" /> */}
             <form onSubmit={handleSubmitForm}>
               <FormControl py="20px" isRequired>
                 <Divider width="70%" mx="auto" />
@@ -153,38 +152,35 @@ const Login = () => {
               </FormControl>
               <Box
                 display="flex"
-                justifyContent="space-around"
-                alignItems="center"
+                mx="auto"
+                flexDirection="column"
                 paddingTop="40px"
               >
-                <Button
-                  maxW="120px"
-                  width="100%"
-                  type="submit"
-                  aria-label="Login user"
-                  bg={backgroundBtnSave}
-                  _active={{ background: backgroundBtnSave }}
-                  _hover={{ background: hoverBtn }}
-                  size="md"
-                >
-                  Sign in
-                </Button>
+                <ButtonFrame>
+                  <Button
+                    width="100%"
+                    type="submit"
+                    aria-label="Login user"
+                    bg={backgroundBtnSave}
+                    _active={{ background: backgroundBtnSave }}
+                    _hover={{ background: hoverBtn }}
+                    size="md"
+                  >
+                    Sign in
+                  </Button>
+                </ButtonFrame>
 
-                <Text color={backgroundBtn} fontWeight="700" fontSize="lg">
-                  or
+                <Text display="flex" mx="auto" pt="20px" fontSize="md">
+                  Not registered?
+                  <Link
+                    pl="5px"
+                    color={useColorModeValue('purple.600', 'teal.400')}
+                    fontSize="md"
+                    onClick={handleClickSignUp}
+                  >
+                    Create an account
+                  </Link>
                 </Text>
-                <Button
-                  maxW="120px"
-                  width="100%"
-                  onClick={handleClickSignUp}
-                  aria-label="Sign up"
-                  bg={backgroundBtnSave}
-                  _active={{ background: backgroundBtnSave }}
-                  _hover={{ background: hoverBtn }}
-                  size="md"
-                >
-                  Sign Up
-                </Button>
               </Box>
             </form>
           </ModalBody>

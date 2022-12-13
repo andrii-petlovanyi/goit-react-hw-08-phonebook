@@ -8,9 +8,12 @@ export { Filter } from './Filter/Filter';
 export { Footer } from './Footer/Footer';
 export { UserMenu } from './UserMenu/UserMenu';
 export { NavBar } from './NavBar/NavBar';
-export { Section } from './Section/Section';
 export { ToggleColorMode } from './Theme/toggleColorMode';
+export { Section } from './Animations/SectionFrame';
+export { CardFrame } from './Animations/CardFrame';
+export { ButtonFrame } from './Animations/ButtonFrame';
+export { HomeImgFrame } from './Animations/HomeImgFrame';
+export { HomeTextFrame } from './Animations/HomeTextFrame';
 
 export { SkeletonPost } from './Loaders/SkeletonPost';
 export { SkeletonAppBar } from './Loaders/SkeletonAppBar';
-// export const Layout = lazy(() => import('./Home/Home'));

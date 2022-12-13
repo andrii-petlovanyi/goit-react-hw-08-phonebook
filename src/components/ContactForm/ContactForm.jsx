@@ -15,6 +15,7 @@ import {
   useGetContactsQuery,
   usePostContactMutation,
 } from '../../redux/contacts/contactsApiSlice';
+import { ButtonFrame } from '../Animations/ButtonFrame';
 
 export const ContactForm = () => {
   const toast = useToast();
@@ -24,7 +25,6 @@ export const ContactForm = () => {
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
   const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
   const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
-
 
   const handleSubmitForm = e => {
     e.preventDefault();
@@ -90,17 +90,20 @@ export const ContactForm = () => {
                 placeholder="Phone number"
               />
             </InputGroup>
-            <Button
-              color="mainWhite"
-              bg={backgroundBtnSave}
-              _active={{ background: backgroundBtnSave }}
-              _hover={{ background: hoverBtn }}
-              size="md"
-              mt="20px"
-              type="submit"
-            >
-              Add
-            </Button>
+            <ButtonFrame>
+              <Button
+                width="100%"
+                color="mainWhite"
+                bg={backgroundBtnSave}
+                _active={{ background: backgroundBtnSave }}
+                _hover={{ background: hoverBtn }}
+                size="md"
+                mt="20px"
+                type="submit"
+              >
+                Add
+              </Button>
+            </ButtonFrame>
           </FormControl>
         </form>
       </Box>

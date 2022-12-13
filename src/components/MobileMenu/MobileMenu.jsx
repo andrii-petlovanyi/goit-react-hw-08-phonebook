@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiMenu } from 'react-icons/fi';
-import { Section, ToggleColorMode } from '../index';
+import { ButtonFrame, Section, ToggleColorMode } from '../index';
 import authSelectors from '../../redux/auth/authSelectors';
 import userAvatar from '../../images/avatar/userAvatar.jpg';
 import { useRef } from 'react';
@@ -84,17 +84,19 @@ export const MobileMenu = () => {
 
   return (
     <>
-      <IconButton
-        onClick={handleOpenMenu}
-        variant="ghost"
-        color="white"
-        bg={useColorModeValue('whiteBG', 'darkBG')}
-        _active
-        _hover={{ background: hoverColor }}
-        icon={<FiMenu fontSize="1.25rem" />}
-        aria-label="Open Menu"
-      />
-
+      <ButtonFrame>
+        <IconButton
+          size="md"
+          onClick={handleOpenMenu}
+          variant="ghost"
+          color="white"
+          bg={useColorModeValue('whiteBG', 'darkBG')}
+          _active
+          _hover={{ background: hoverColor }}
+          icon={<FiMenu fontSize="1.25rem" />}
+          aria-label="Open Menu"
+        />
+      </ButtonFrame>
       <Drawer
         onClose={onClose}
         initialFocusRef={firstTarget}
@@ -114,19 +116,21 @@ export const MobileMenu = () => {
             </Heading>
             <Box display="flex" gap="10px">
               <ToggleColorMode />
-              <IconButton
-                onClick={onClose}
-                ref={firstTarget}
-                variant="ghost"
-                color="white"
-                bg={useColorModeValue('whiteBG', 'darkBG')}
-                _active
-                _hover={{
-                  background: hoverColor,
-                }}
-                icon={<CloseIcon fontSize="0.9rem" />}
-                aria-label="Open Menu"
-              />
+              <ButtonFrame>
+                <IconButton
+                  onClick={onClose}
+                  ref={firstTarget}
+                  variant="ghost"
+                  color="white"
+                  bg={useColorModeValue('whiteBG', 'darkBG')}
+                  _active
+                  _hover={{
+                    background: hoverColor,
+                  }}
+                  icon={<CloseIcon fontSize="0.9rem" />}
+                  aria-label="Close Menu"
+                />
+              </ButtonFrame>
             </Box>
           </DrawerHeader>
           <DrawerBody display="flex">
@@ -155,7 +159,7 @@ export const MobileMenu = () => {
             )}
           </DrawerBody>
           <Section delay={0.4} mx="auto">
-            <DrawerFooter mb="70px">
+            <DrawerFooter mb="50px">
               {isLoggedIn ? (
                 <Box
                   position="relative"
@@ -198,33 +202,39 @@ export const MobileMenu = () => {
               ) : (
                 <Box mx="auto" display="flex" flexDirection="column" gap="20px">
                   <Text fontSize="20px">Please, sign in...</Text>
-                  <Button
-                    onClick={handleClickLogin}
-                    aria-label="Login"
-                    bg={backgroundBtn}
-                    _active
-                    _hover={{
-                      background: hoverColor,
-                    }}
-                    size="lg"
-                  >
-                    Sign In
-                  </Button>
+                  <ButtonFrame>
+                    <Button
+                      width="100%"
+                      onClick={handleClickLogin}
+                      aria-label="Login"
+                      bg={backgroundBtn}
+                      _active
+                      _hover={{
+                        background: hoverColor,
+                      }}
+                      size="lg"
+                    >
+                      Sign In
+                    </Button>
+                  </ButtonFrame>
                   <Text fontSize="18px" fontWeight="700" mx="auto">
                     or
                   </Text>
-                  <Button
-                    onClick={handleClickRegister}
-                    aria-label="Login"
-                    bg={backgroundBtn}
-                    _active
-                    _hover={{
-                      background: hoverColor,
-                    }}
-                    size="lg"
-                  >
-                    Sign up
-                  </Button>
+                  <ButtonFrame>
+                    <Button
+                      width="100%"
+                      onClick={handleClickRegister}
+                      aria-label="Login"
+                      bg={backgroundBtn}
+                      _active
+                      _hover={{
+                        background: hoverColor,
+                      }}
+                      size="lg"
+                    >
+                      Sign up
+                    </Button>
+                  </ButtonFrame>
                 </Box>
               )}
             </DrawerFooter>
