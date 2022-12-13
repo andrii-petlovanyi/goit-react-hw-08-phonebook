@@ -26,7 +26,10 @@ import {
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import { logIn } from '../../redux/auth/authSlice';
-import { useLogInUserMutation } from '../../redux/auth/authApiSlice';
+import {
+  useGetUserQuery,
+  useLogInUserMutation,
+} from '../../redux/auth/authApiSlice';
 import { ButtonFrame } from '../../components';
 
 const Login = () => {
@@ -39,6 +42,7 @@ const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const [logInUser, { isLoading }] = useLogInUserMutation();
+  const { isLoading: isRefresh } = useGetUserQuery();
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -46,6 +50,7 @@ const Login = () => {
   const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
   const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
 
+  console.log(useGetUserQuery());
   useEffect(() => {
     onOpen();
     return () => onClose();
@@ -103,91 +108,93 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Modal isOpen={isOpen} onClose={handleClose} isCentered>
-        <ModalOverlay />
-        <ModalContent py="20px">
-          <ModalHeader fontSize="30px">Welcome back</ModalHeader>
-          <ModalBody pb="20px">
-            <form onSubmit={handleSubmitForm}>
-              <FormControl py="20px" isRequired>
-                <Divider width="70%" mx="auto" />
-                <FormLabel>Email</FormLabel>
-                <Input
-                  name="email"
-                  type="email"
-                  placeholder="example@gmail.com"
-                  _placeholder={{ opacity: 0.6, color: backgroundBtn }}
-                  focusBorderColor={backgroundBtn}
-                  id="login_email"
-                  value={value.email}
-                  onChange={handleInputChange}
-                />
-                <FormLabel pt="20px">Password</FormLabel>
-                <InputGroup>
+    !isRefresh && (
+      <>
+        <Modal isOpen={isOpen} onClose={handleClose} isCentered>
+          <ModalOverlay />
+          <ModalContent py="20px">
+            <ModalHeader fontSize="30px">Welcome back</ModalHeader>
+            <ModalBody pb="20px">
+              <form onSubmit={handleSubmitForm}>
+                <FormControl py="20px" isRequired>
+                  <Divider width="70%" mx="auto" />
+                  <FormLabel>Email</FormLabel>
                   <Input
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
+                    name="email"
+                    type="email"
+                    placeholder="example@gmail.com"
                     _placeholder={{ opacity: 0.6, color: backgroundBtn }}
                     focusBorderColor={backgroundBtn}
-                    placeholder="********"
-                    id="login_password"
-                    value={value.password}
+                    id="login_email"
+                    value={value.email}
                     onChange={handleInputChange}
                   />
-                  <InputRightElement width="3rem">
+                  <FormLabel pt="20px">Password</FormLabel>
+                  <InputGroup>
+                    <Input
+                      name="password"
+                      type={showPassword ? 'text' : 'password'}
+                      _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                      focusBorderColor={backgroundBtn}
+                      placeholder="********"
+                      id="login_password"
+                      value={value.password}
+                      onChange={handleInputChange}
+                    />
+                    <InputRightElement width="3rem">
+                      <Button
+                        h="1.7rem"
+                        size="sm"
+                        onClick={handlePasswordVisibility}
+                      >
+                        {showPassword ? (
+                          <Icon as={ViewIcon} />
+                        ) : (
+                          <Icon as={ViewOffIcon} />
+                        )}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <Box
+                  display="flex"
+                  mx="auto"
+                  flexDirection="column"
+                  paddingTop="40px"
+                >
+                  <ButtonFrame>
                     <Button
-                      h="1.7rem"
-                      size="sm"
-                      onClick={handlePasswordVisibility}
+                      isLoading={isLoading ? true : false}
+                      width="100%"
+                      type="submit"
+                      aria-label="Login user"
+                      bg={backgroundBtnSave}
+                      _active={{ background: backgroundBtnSave }}
+                      _hover={{ background: hoverBtn }}
+                      size="md"
                     >
-                      {showPassword ? (
-                        <Icon as={ViewIcon} />
-                      ) : (
-                        <Icon as={ViewOffIcon} />
-                      )}
+                      Sign in
                     </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-              <Box
-                display="flex"
-                mx="auto"
-                flexDirection="column"
-                paddingTop="40px"
-              >
-                <ButtonFrame>
-                  <Button
-                    isLoading={isLoading ? true : false}
-                    width="100%"
-                    type="submit"
-                    aria-label="Login user"
-                    bg={backgroundBtnSave}
-                    _active={{ background: backgroundBtnSave }}
-                    _hover={{ background: hoverBtn }}
-                    size="md"
-                  >
-                    Sign in
-                  </Button>
-                </ButtonFrame>
+                  </ButtonFrame>
 
-                <Text display="flex" mx="auto" pt="20px" fontSize="md">
-                  Not registered?
-                  <Link
-                    pl="5px"
-                    color={useColorModeValue('purple.600', 'teal.400')}
-                    fontSize="md"
-                    onClick={handleClickSignUp}
-                  >
-                    Create an account
-                  </Link>
-                </Text>
-              </Box>
-            </form>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
+                  <Text display="flex" mx="auto" pt="20px" fontSize="md">
+                    Not registered?
+                    <Link
+                      pl="5px"
+                      // color={useColorModeValue('purple.600', 'teal.400')}
+                      fontSize="md"
+                      onClick={handleClickSignUp}
+                    >
+                      Create an account
+                    </Link>
+                  </Text>
+                </Box>
+              </form>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </>
+    )
   );
 };
 
