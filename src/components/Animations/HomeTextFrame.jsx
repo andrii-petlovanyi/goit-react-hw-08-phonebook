@@ -38,7 +38,7 @@ export const HomeTextFrame = () => {
             .pause(300)
             .type(' Don`t wait! Let`s try this piece of she*')
             .pause(300)
-            .delete(5)
+            .delete(4)
             .type('galaxy...')
             .pause(300)
             .delete(3)
