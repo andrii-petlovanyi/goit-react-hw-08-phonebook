@@ -72,7 +72,7 @@ const AddContacts = () => {
         >
           <Section delay={0.4}>
             <Heading as="h1" size="md" textAlign="center">
-              {data ? 'Last added contacts' : 'No added contacts'}
+              {data?.length > 0 ? 'Last added contacts' : 'No added contacts'}
             </Heading>
           </Section>
           <Section delay={0.5}>

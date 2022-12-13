@@ -8,6 +8,7 @@ import {
   InputLeftElement,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
@@ -15,7 +16,10 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import { usePatchContactMutation } from '../../redux/contacts/contactsApiSlice';
+import {
+  useGetContactsQuery,
+  usePatchContactMutation,
+} from '../../redux/contacts/contactsApiSlice';
 import { MdAccountCircle, MdModeEdit } from 'react-icons/md';
 import { PhoneIcon } from '@chakra-ui/icons';
 import { ButtonFrame } from '../Animations/ButtonFrame';
@@ -23,6 +27,7 @@ import { ButtonFrame } from '../Animations/ButtonFrame';
 export const EditForm = ({ contact = {} }) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data } = useGetContactsQuery();
   const [patchContact, { isLoading }] = usePatchContactMutation();
 
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
@@ -35,10 +40,17 @@ export const EditForm = ({ contact = {} }) => {
 
   const handleSubmitForm = e => {
     e.preventDefault();
-    const name = e.target.name.value;
-    const number = e.target.number.value;
+    const name = e.target.name.value.trim();
+    const number = e.target.number.value.trim();
     if (name === '' || number === '') return;
     const patchedContacts = { name, number };
+    if (data.find(cont => cont.name.toLowerCase() === name.toLowerCase())) {
+      return toast({
+        description: `${name} is already in contacts`,
+        isClosable: true,
+        status: 'error',
+      });
+    }
     patchContact({ contactId: contact.id, patchedContacts });
     onClose();
     toast({
@@ -75,6 +87,7 @@ export const EditForm = ({ contact = {} }) => {
         <ModalOverlay />
         <ModalContent py="20px">
           <ModalHeader>Edit contacts</ModalHeader>
+          <ModalCloseButton />
           <ModalBody>
             <form onSubmit={handleSubmitForm}>
               <FormControl>
@@ -121,6 +134,7 @@ export const EditForm = ({ contact = {} }) => {
 
               <ButtonFrame>
                 <Button
+                  isLoading={isLoading ? true : false}
                   width="100%"
                   mt={4}
                   type="submit"
@@ -130,7 +144,6 @@ export const EditForm = ({ contact = {} }) => {
                   _active={{ background: backgroundBtnSave }}
                   _hover={{ background: hoverBtn }}
                   size="md"
-                  onClick={onClose}
                 >
                   Save
                 </Button>

@@ -16,10 +16,12 @@ import {
   usePostContactMutation,
 } from '../../redux/contacts/contactsApiSlice';
 import { ButtonFrame } from '../Animations/ButtonFrame';
+import { useFocus } from '../../utils/index';
 
 export const ContactForm = () => {
   const toast = useToast();
-  const [postContact] = usePostContactMutation();
+  const [inputRef, setInputFocus] = useFocus();
+  const [postContact, { isLoading }] = usePostContactMutation();
   const { data } = useGetContactsQuery();
 
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
@@ -29,9 +31,10 @@ export const ContactForm = () => {
   const handleSubmitForm = e => {
     e.preventDefault();
     const form = e.target;
-    const name = e.target.elements.name.value;
-    const number = e.target.elements.number.value;
+    const name = e.target.elements.name.value.trim();
+    const number = e.target.elements.number.value.trim();
     if (data.find(cont => cont.name.toLowerCase() === name.toLowerCase())) {
+      form.reset();
       return toast({
         description: `${name} is already in contacts`,
         isClosable: true,
@@ -45,6 +48,7 @@ export const ContactForm = () => {
       status: 'success',
     });
     form.reset();
+    setInputFocus();
   };
 
   return (
@@ -69,6 +73,7 @@ export const ContactForm = () => {
                 }
               />
               <Input
+                ref={inputRef}
                 name="name"
                 placeholder="Name"
                 _placeholder={{ opacity: 0.6, color: backgroundBtn }}
@@ -92,6 +97,7 @@ export const ContactForm = () => {
             </InputGroup>
             <ButtonFrame>
               <Button
+                isLoading={isLoading ? true : false}
                 width="100%"
                 color="mainWhite"
                 bg={backgroundBtnSave}

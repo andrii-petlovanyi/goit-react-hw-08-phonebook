@@ -49,8 +49,8 @@ const Login = () => {
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
   const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
   const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
+  const linkColor = useColorModeValue('purple.600', 'teal.400');
 
-  console.log(useGetUserQuery());
   useEffect(() => {
     onOpen();
     return () => onClose();
@@ -181,7 +181,7 @@ const Login = () => {
                     Not registered?
                     <Link
                       pl="5px"
-                      // color={useColorModeValue('purple.600', 'teal.400')}
+                      color={linkColor}
                       fontSize="md"
                       onClick={handleClickSignUp}
                     >

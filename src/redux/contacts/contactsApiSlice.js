@@ -18,7 +18,7 @@ const contactsApiSlice = createApi({
   endpoints: builder => ({
     getContacts: builder.query({
       query: () => `/contacts`,
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 0,
       providesTags: ['contacts'],
     }),
     postContact: builder.mutation({
