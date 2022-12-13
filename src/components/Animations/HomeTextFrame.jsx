@@ -19,6 +19,7 @@ export const HomeTextFrame = () => {
         options={{ loop: true }}
         getBeforeInit={instance => {
           instance
+            .pause(1000)
             .type('Hey hey!!!')
             .pause(750)
             .delete(2)
