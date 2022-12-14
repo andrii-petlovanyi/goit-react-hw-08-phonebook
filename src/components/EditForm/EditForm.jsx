@@ -16,6 +16,7 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 import {
   useGetContactsQuery,
   usePatchContactMutation,
@@ -154,4 +155,12 @@ export const EditForm = ({ contact = {} }) => {
       </Modal>
     </>
   );
+};
+
+EditForm.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }).isRequired,
 };

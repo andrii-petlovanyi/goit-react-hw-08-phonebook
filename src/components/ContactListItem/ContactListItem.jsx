@@ -9,6 +9,7 @@ import {
   useToast,
   useColorModeValue,
 } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 import { MdDeleteOutline } from 'react-icons/md';
 import { useDeleteContactMutation } from '../../redux/contacts/contactsApiSlice';
 import { ButtonFrame, CardFrame, EditForm } from '../index';
@@ -92,4 +93,12 @@ export const ContactListItem = ({ contact = [] }) => {
       </CardFrame>
     </>
   );
+};
+
+ContactListItem.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }).isRequired,
 };
