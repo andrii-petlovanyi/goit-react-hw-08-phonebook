@@ -7,7 +7,7 @@ import {
   Filter,
   ContactList,
 } from '../../components/index';
-import noDataContent from '../../images/content/noDataContent.png';
+import noDataContent from '../../images/content/noDataContent.webp';
 
 const Contacts = () => {
   const { data, isLoading } = useGetContactsQuery();

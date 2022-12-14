@@ -1,6 +1,6 @@
 import { Image, SimpleGrid } from '@chakra-ui/react';
 import { HomeImgFrame, HomeTextFrame, Section } from '../../components';
-import homePageContent from '../../images/content/homePageContent.png';
+import homePageContent from '../../images/content/homePageContent.webp';
 
 const Home = () => {
   return (

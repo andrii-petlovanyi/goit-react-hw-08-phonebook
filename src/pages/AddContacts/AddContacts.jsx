@@ -14,7 +14,7 @@ import {
 } from '../../components/index';
 
 import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
-import addContactsContent from '../../images/content/addContactsContent.png';
+import addContactsContent from '../../images/content/addContactsContent.webp';
 
 const AddContacts = () => {
   const { data, isLoading } = useGetContactsQuery();
