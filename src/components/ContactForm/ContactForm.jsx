@@ -16,7 +16,7 @@ import {
   usePostContactMutation,
 } from '../../redux/contacts/contactsApiSlice';
 import { ButtonFrame } from '../Animations/ButtonFrame';
-import { useFocus } from '../../utils/index';
+import { useFocus } from '../../hooks/useFocus';
 
 export const ContactForm = () => {
   const toast = useToast();
