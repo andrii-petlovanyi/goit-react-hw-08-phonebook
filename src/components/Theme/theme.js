@@ -6,7 +6,6 @@ const config = {
   useSystemColorMode: true,
 };
 
-
 const colors = {
   mainWhite: '#f9f9f9',
   mainDark: '#202023',
@@ -66,6 +65,4 @@ const components = {
   },
 };
 
-const theme = extendTheme({ config, components, colors, styles });
-
-export default theme;
+export const theme = extendTheme({ config, components, colors, styles });

@@ -4,10 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
-import { store, persistor } from './redux/store';
-import { App } from './App';
-import './index.css';
-import theme from './components/Theme/theme';
+
+import { store, persistor } from 'redux/store';
+import { App } from 'App';
+import 'index.css';
+import { theme } from 'components';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

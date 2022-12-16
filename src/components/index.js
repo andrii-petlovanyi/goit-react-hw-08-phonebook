@@ -9,6 +9,7 @@ export { Footer } from 'components/Footer';
 export { UserMenu } from 'components/UserMenu';
 export { NavBar } from 'components/NavBar';
 export { ToggleColorMode } from 'components/Theme/toggleColorMode';
+export { theme } from 'components/Theme/theme';
 
 export * from 'components/Animations';
 export * from 'components/Loaders';
