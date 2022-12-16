@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { useGetUserQuery } from 'redux/auth/authApiSlice';
 import authSelectors from 'redux/auth/authSelectors';
@@ -16,3 +17,7 @@ const PrivateRoute = ({ children }) => {
   }
 };
 export default PrivateRoute;
+
+PrivateRoute.propTypes = {
+  children: PropTypes.any,
+};

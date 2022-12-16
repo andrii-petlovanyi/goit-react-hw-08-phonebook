@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 export const CardFrame = ({ children }) => {
   return (
@@ -9,4 +10,8 @@ export const CardFrame = ({ children }) => {
       {children}
     </motion.div>
   );
+};
+
+CardFrame.propTypes = {
+  children: PropTypes.node,
 };

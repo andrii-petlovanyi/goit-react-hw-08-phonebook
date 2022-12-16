@@ -1,4 +1,5 @@
 import { PhoneIcon } from '@chakra-ui/icons';
+import PropTypes from 'prop-types';
 import { MdAccountCircle } from 'react-icons/md';
 import {
   Box,
@@ -65,6 +66,7 @@ export const ContactForm = () => {
             <InputGroup size="lg">
               <InputLeftElement
                 pointerEvents="none"
+                // eslint-disable-next-line react/no-children-prop
                 children={
                   <Icon
                     color={backgroundBtn}
@@ -86,6 +88,7 @@ export const ContactForm = () => {
             <InputGroup size="lg">
               <InputLeftElement
                 pointerEvents="none"
+                // eslint-disable-next-line react/no-children-prop
                 children={<PhoneIcon color={backgroundBtn} />}
               />
               <Input

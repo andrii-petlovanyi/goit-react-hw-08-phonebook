@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 export const ButtonFrame = ({ children }) => {
   return (
@@ -6,4 +7,8 @@ export const ButtonFrame = ({ children }) => {
       {children}
     </motion.div>
   );
+};
+
+ButtonFrame.propTypes = {
+  children: PropTypes.node,
 };

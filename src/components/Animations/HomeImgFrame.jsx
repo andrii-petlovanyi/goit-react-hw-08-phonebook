@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 export const HomeImgFrame = ({ children }) => {
   return (
@@ -16,4 +17,8 @@ export const HomeImgFrame = ({ children }) => {
       {children}
     </motion.div>
   );
+};
+
+HomeImgFrame.propTypes = {
+  children: PropTypes.node,
 };

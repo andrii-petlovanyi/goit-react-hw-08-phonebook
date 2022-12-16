@@ -29,6 +29,7 @@ export const Filter = () => {
           <InputGroup size="lg">
             <InputLeftElement
               pointerEvents="none"
+              // eslint-disable-next-line react/no-children-prop
               children={<Search2Icon color={backgroundBtn} />}
             />
             <Input

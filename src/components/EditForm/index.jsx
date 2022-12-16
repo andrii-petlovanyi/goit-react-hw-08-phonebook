@@ -96,6 +96,7 @@ export const EditForm = ({ contact = {} }) => {
                 <InputGroup size="lg">
                   <InputLeftElement
                     pointerEvents="none"
+                    // eslint-disable-next-line react/no-children-prop
                     children={
                       <Icon
                         color={backgroundBtn}
@@ -120,6 +121,7 @@ export const EditForm = ({ contact = {} }) => {
                 <InputGroup size="lg">
                   <InputLeftElement
                     pointerEvents="none"
+                    // eslint-disable-next-line react/no-children-prop
                     children={<PhoneIcon color={backgroundBtn} />}
                   />
                   <Input
