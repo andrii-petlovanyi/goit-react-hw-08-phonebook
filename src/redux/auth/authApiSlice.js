@@ -41,9 +41,10 @@ const authApiSlice = createApi({
     }),
 
     getUser: builder.query({
-      query: () => '/users/current',
+      query: () => ({
+        url: '/users/current',
+      }),
       providesTags: ['users'],
-      // providesTags: result => (result ? ['users'] : []),
     }),
   }),
 });
