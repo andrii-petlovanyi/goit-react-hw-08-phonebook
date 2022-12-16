@@ -10,13 +10,15 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+
 import { MdDeleteOutline } from 'react-icons/md';
-import { useDeleteContactMutation } from '../../redux/contacts/contactsApiSlice';
-import { ButtonFrame, CardFrame, EditForm } from '../index';
+import { useDeleteContactMutation } from 'redux/contacts/contactsApiSlice';
+import { ButtonFrame, CardFrame, EditForm } from 'components';
 
 export const ContactListItem = ({ contact = [] }) => {
-  const [deleteContact, { isLoading }] = useDeleteContactMutation();
   const toast = useToast();
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
+
   const { id, name, number } = contact;
 
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');

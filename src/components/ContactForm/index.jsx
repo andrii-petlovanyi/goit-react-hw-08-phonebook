@@ -11,12 +11,13 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
+
 import {
   useGetContactsQuery,
   usePostContactMutation,
-} from '../../redux/contacts/contactsApiSlice';
-import { ButtonFrame } from '../Animations/ButtonFrame';
-import { useFocus } from '../../hooks/useFocus';
+} from 'redux/contacts/contactsApiSlice';
+import { ButtonFrame } from 'components';
+import { useFocus } from 'hooks/useFocus';
 
 export const ContactForm = () => {
   const toast = useToast();

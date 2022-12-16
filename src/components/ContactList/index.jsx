@@ -1,15 +1,14 @@
 import { SimpleGrid } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
-import filterSelectors from '../../redux/filter/filterSelectors';
-import { ContactListItem } from '../index';
+
+import { useGetContactsQuery } from 'redux/contacts/contactsApiSlice';
+import filterSelectors from 'redux/filter/filterSelectors';
+import { ContactListItem } from 'components';
 
 export const ContactList = () => {
   const { data } = useGetContactsQuery();
-
   const filter = useSelector(filterSelectors.getFilterValue);
 
-  //
   const filteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
     if (!data) return;
@@ -18,6 +17,7 @@ export const ContactList = () => {
     });
     return newData.reverse();
   };
+
   return (
     <>
       <SimpleGrid

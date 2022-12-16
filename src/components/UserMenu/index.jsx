@@ -14,12 +14,12 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useLogOutUserMutation } from '../../redux/auth/authApiSlice';
-import authSelectors from '../../redux/auth/authSelectors';
-import { logOut } from '../../redux/auth/authSlice';
-import userAvatar from '../../images/avatar/userAvatar.jpg';
-import { ToggleColorMode } from '../Theme/toggleColorMode';
-import { ButtonFrame } from '../Animations/ButtonFrame';
+
+import { useLogOutUserMutation } from 'redux/auth/authApiSlice';
+import authSelectors from 'redux/auth/authSelectors';
+import { logOut } from 'redux/auth/authSlice';
+import { ToggleColorMode, ButtonFrame } from 'components';
+import userAvatar from 'images/avatar/userAvatar.jpg';
 
 export const UserMenu = () => {
   const toast = useToast();

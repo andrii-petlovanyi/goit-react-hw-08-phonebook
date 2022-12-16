@@ -17,13 +17,14 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+
+import { PhoneIcon } from '@chakra-ui/icons';
+import { MdAccountCircle, MdModeEdit } from 'react-icons/md';
 import {
   useGetContactsQuery,
   usePatchContactMutation,
-} from '../../redux/contacts/contactsApiSlice';
-import { MdAccountCircle, MdModeEdit } from 'react-icons/md';
-import { PhoneIcon } from '@chakra-ui/icons';
-import { ButtonFrame } from '../Animations/ButtonFrame';
+} from 'redux/contacts/contactsApiSlice';
+import { ButtonFrame } from 'components/';
 
 export const EditForm = ({ contact = {} }) => {
   const toast = useToast();

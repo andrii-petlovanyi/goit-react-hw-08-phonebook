@@ -1,6 +1,6 @@
 import { Box, Image, Text } from '@chakra-ui/react';
 
-import errorPageContent from '../../images/content/errorPageContent.webp';
+import errorPageContent from 'images/content/errorPageContent.webp';
 
 const NotFound = () => {
   return (

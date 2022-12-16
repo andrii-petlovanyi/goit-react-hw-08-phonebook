@@ -7,12 +7,13 @@ import {
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGetUserQuery } from '../../redux/auth/authApiSlice';
-import authSelectors from '../../redux/auth/authSelectors';
-import { refresh } from '../../redux/auth/authSlice';
-import { Logo } from '../../pages/Layout/Layout.styled';
-import { NavBar, UserMenu, MobileMenu } from '../index';
-import { ToggleColorMode } from '../Theme/toggleColorMode';
+
+import { useGetUserQuery } from 'redux/auth/authApiSlice';
+import authSelectors from 'redux/auth/authSelectors';
+import { refresh } from 'redux/auth/authSlice';
+
+import { Logo } from 'pages/Layout/styled';
+import { NavBar, UserMenu, MobileMenu, ToggleColorMode } from 'components';
 
 export const AppBar = () => {
   const navigate = useNavigate();

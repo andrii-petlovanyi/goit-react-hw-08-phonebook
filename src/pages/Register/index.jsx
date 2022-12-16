@@ -18,33 +18,34 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
-  Divider,
   Box,
   useColorModeValue,
   Link,
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-
-import { logIn } from '../../redux/auth/authSlice';
 import {
   useGetUserQuery,
-  useLogInUserMutation,
-} from '../../redux/auth/authApiSlice';
-import { ButtonFrame } from '../../components';
+  useSignUpUserMutation,
+} from 'redux/auth/authApiSlice';
+import { register } from 'redux/auth/authSlice';
+import { ButtonFrame } from 'components';
 
-const Login = () => {
+const Register = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isLoading: isRefresh } = useGetUserQuery();
+  const [signUpUser, { isLoading }] = useSignUpUserMutation();
   const [value, setValue] = useState({
+    name: '',
     email: '',
     password: '',
   });
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const toast = useToast();
-  const [logInUser, { isLoading }] = useLogInUserMutation();
-  const { isLoading: isRefresh } = useGetUserQuery();
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
   const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
@@ -62,44 +63,40 @@ const Login = () => {
     setValue(state => ({ ...state, [name]: value }));
   };
 
+  const handleClickLogin = () => {
+    navigate('/login');
+  };
+
   const handleSubmitForm = async e => {
     e.preventDefault();
-    if (value.email === '' || value.password === '')
+    if (value.name === '' || value.email === '' || value.password === '')
       return toast({
         description: 'Please, fill all fields form...',
         isClosable: true,
         status: 'error',
       });
 
-    try {
-      const checkedUser = await logInUser(value);
-
-      dispatch(logIn(checkedUser));
-      setValue({ email: '', password: '' });
-      navigate('/contacts');
-      onClose();
-      toast({
-        description: `Welcome, ${checkedUser.data.user.name} !`,
+    if (value.password.length < 7)
+      return toast({
+        description: 'Password length must be more than 7 characters...',
         isClosable: true,
-        status: 'success',
-        duration: 3000,
+        status: 'error',
       });
+
+    try {
+      const checkedUser = await signUpUser(value);
+      dispatch(register(checkedUser));
+      setValue({ name: '', email: '', password: '' });
+      onClose();
+      navigate('/');
     } catch (error) {
       toast({
         description:
-          'Wrong username or e-mail. If you`re not signed up yet, you`re welcome to do it!',
+          'Something went wrong...Maybe, this user already exists...',
         isClosable: true,
         status: 'error',
       });
     }
-  };
-
-  const handlePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleClickSignUp = () => {
-    navigate('/register');
   };
 
   const handleClose = () => {
@@ -113,19 +110,29 @@ const Login = () => {
         <Modal isOpen={isOpen} onClose={handleClose} isCentered>
           <ModalOverlay />
           <ModalContent py="20px">
-            <ModalHeader fontSize="30px">Welcome back</ModalHeader>
+            <ModalHeader fontSize="30px">Create an account</ModalHeader>
             <ModalBody pb="20px">
               <form onSubmit={handleSubmitForm}>
                 <FormControl py="20px" isRequired>
-                  <Divider width="70%" mx="auto" />
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                    focusBorderColor={backgroundBtn}
+                    id="register_name"
+                    value={value.nickname}
+                    onChange={handleInputChange}
+                  />
+                  <FormLabel pt="20px">Email</FormLabel>
                   <Input
                     name="email"
                     type="email"
                     placeholder="example@gmail.com"
                     _placeholder={{ opacity: 0.6, color: backgroundBtn }}
                     focusBorderColor={backgroundBtn}
-                    id="login_email"
+                    id="register_email"
                     value={value.email}
                     onChange={handleInputChange}
                   />
@@ -134,16 +141,17 @@ const Login = () => {
                     <Input
                       name="password"
                       type={showPassword ? 'text' : 'password'}
+                      min={7}
+                      placeholder="********"
                       _placeholder={{ opacity: 0.6, color: backgroundBtn }}
                       focusBorderColor={backgroundBtn}
-                      placeholder="********"
-                      id="login_password"
+                      id="register_password"
                       value={value.password}
                       onChange={handleInputChange}
                     />
                     <InputRightElement width="3rem">
                       <Button
-                        h="1.7rem"
+                        h="1.5rem"
                         size="sm"
                         onClick={handlePasswordVisibility}
                       >
@@ -157,8 +165,8 @@ const Login = () => {
                   </InputGroup>
                 </FormControl>
                 <Box
-                  display="flex"
                   mx="auto"
+                  display="flex"
                   flexDirection="column"
                   paddingTop="40px"
                 >
@@ -167,25 +175,24 @@ const Login = () => {
                       isLoading={isLoading ? true : false}
                       width="100%"
                       type="submit"
-                      aria-label="Login user"
+                      aria-label="Sign up"
                       bg={backgroundBtnSave}
                       _active={{ background: backgroundBtnSave }}
                       _hover={{ background: hoverBtn }}
                       size="md"
                     >
-                      Sign in
+                      Create account
                     </Button>
                   </ButtonFrame>
-
                   <Text display="flex" mx="auto" pt="20px" fontSize="md">
-                    Not registered?
+                    Already registered?
                     <Link
                       pl="5px"
                       color={linkColor}
                       fontSize="md"
-                      onClick={handleClickSignUp}
+                      onClick={handleClickLogin}
                     >
-                      Create an account
+                      Sign in
                     </Link>
                   </Text>
                 </Box>
@@ -198,4 +205,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

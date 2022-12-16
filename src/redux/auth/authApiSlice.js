@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { store } from '../store';
 
 const authApiSlice = createApi({
   reducerPath: 'authApiSlice',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
-    prepareHeaders: headers => {
-      const token = store.getState().auth.token;
+
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
 
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);

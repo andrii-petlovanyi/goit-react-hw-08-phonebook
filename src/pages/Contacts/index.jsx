@@ -1,13 +1,8 @@
 import { Box, Divider, Image, SimpleGrid, Text } from '@chakra-ui/react';
-import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
 
-import {
-  Section,
-  SkeletonPost,
-  Filter,
-  ContactList,
-} from '../../components/index';
-import noDataContent from '../../images/content/noDataContent.webp';
+import { useGetContactsQuery } from 'redux/contacts/contactsApiSlice';
+import { Section, SkeletonPost, Filter, ContactList } from 'components';
+import noDataContent from 'images/content/noDataContent.webp';
 
 const Contacts = () => {
   const { data, isLoading } = useGetContactsQuery();

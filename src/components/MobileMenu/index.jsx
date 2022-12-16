@@ -1,4 +1,6 @@
-import { CloseIcon } from '@chakra-ui/icons';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   Avatar,
   Box,
@@ -16,17 +18,17 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { CloseIcon } from '@chakra-ui/icons';
 import { FiMenu } from 'react-icons/fi';
-import { ButtonFrame, Section, ToggleColorMode } from '../index';
-import authSelectors from '../../redux/auth/authSelectors';
-import userAvatar from '../../images/avatar/userAvatar.jpg';
-import { useRef } from 'react';
 import { MdExitToApp } from 'react-icons/md';
-import { MobileLinkStyled } from '../../pages/Layout/Layout.styled';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useLogOutUserMutation } from '../../redux/auth/authApiSlice';
-import { logOut } from '../../redux/auth/authSlice';
+
+import { useLogOutUserMutation } from 'redux/auth/authApiSlice';
+import { logOut } from 'redux/auth/authSlice';
+import authSelectors from 'redux/auth/authSelectors';
+import { ButtonFrame, Section, ToggleColorMode } from 'components';
+import userAvatar from 'images/avatar/userAvatar.jpg';
+import { MobileLinkStyled } from 'pages/Layout/styled';
 
 export const MobileMenu = () => {
   const links = [

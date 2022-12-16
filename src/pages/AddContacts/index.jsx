@@ -6,15 +6,15 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from '@chakra-ui/react';
+
 import {
   ContactForm,
   ContactListItem,
   SkeletonPost,
   Section,
-} from '../../components/index';
-
-import { useGetContactsQuery } from '../../redux/contacts/contactsApiSlice';
-import addContactsContent from '../../images/content/addContactsContent.webp';
+} from 'components';
+import { useGetContactsQuery } from 'redux/contacts/contactsApiSlice';
+import addContactsContent from 'images/content/addContactsContent.webp';
 
 const AddContacts = () => {
   const { data, isLoading } = useGetContactsQuery();
