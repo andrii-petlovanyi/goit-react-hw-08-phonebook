@@ -42,6 +42,6 @@ export const store = configureStore({
   // devTools: process.env.NODE_ENV === 'development',
 });
 
-setupListeners(store.dispatch);
+// setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);

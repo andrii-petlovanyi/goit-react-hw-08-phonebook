@@ -20,6 +20,7 @@ import authSelectors from 'redux/auth/authSelectors';
 import { logOut } from 'redux/auth/authSlice';
 import { ToggleColorMode, ButtonFrame } from 'components';
 import userAvatar from 'images/avatar/userAvatar.jpg';
+import Cookies from 'js-cookie';
 
 export const UserMenu = () => {
   const toast = useToast();
@@ -31,6 +32,7 @@ export const UserMenu = () => {
   const [logOutUser] = useLogOutUserMutation();
 
   const handleClickLogout = async () => {
+    Cookies.set('privateRoute', '', { expires: 7 });
     const checkedUser = await logOutUser(userToken);
     dispatch(logOut(checkedUser));
     toast({
@@ -39,6 +41,7 @@ export const UserMenu = () => {
       status: 'success',
       duration: 2000,
     });
+
     navigate('/login');
   };
 

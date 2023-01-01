@@ -51,7 +51,7 @@ const Contacts = () => {
             </Text>
           </Box>
         )}
-        {data?.length > 0 && !isLoading && <ContactList />}
+        {Boolean(data?.length > 0 && !isLoading) && <ContactList />}
       </Section>
     </>
   );

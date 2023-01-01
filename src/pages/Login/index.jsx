@@ -39,7 +39,6 @@ const Login = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const [logInUser, { isLoading }] = useLogInUserMutation();
-  const { isLoading: isRefresh } = useGetUserQuery();
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -105,93 +104,91 @@ const Login = () => {
   };
 
   return (
-    !isRefresh && (
-      <>
-        <Modal isOpen={isOpen} onClose={handleClose} isCentered>
-          <ModalOverlay />
-          <ModalContent py="20px">
-            <ModalHeader fontSize="30px">Welcome back</ModalHeader>
-            <ModalBody pb="20px">
-              <form onSubmit={handleSubmitForm}>
-                <FormControl py="20px" isRequired>
-                  <Divider width="70%" mx="auto" />
-                  <FormLabel>Email</FormLabel>
+    <>
+      <Modal isOpen={isOpen} onClose={handleClose} isCentered>
+        <ModalOverlay />
+        <ModalContent py="20px">
+          <ModalHeader fontSize="30px">Welcome back</ModalHeader>
+          <ModalBody pb="20px">
+            <form onSubmit={handleSubmitForm}>
+              <FormControl py="20px" isRequired>
+                <Divider width="70%" mx="auto" />
+                <FormLabel>Email</FormLabel>
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="example@gmail.com"
+                  _placeholder={{ opacity: 0.6, color: backgroundBtn }}
+                  focusBorderColor={backgroundBtn}
+                  id="login_email"
+                  value={value.email}
+                  onChange={handleInputChange}
+                />
+                <FormLabel pt="20px">Password</FormLabel>
+                <InputGroup>
                   <Input
-                    name="email"
-                    type="email"
-                    placeholder="example@gmail.com"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
                     _placeholder={{ opacity: 0.6, color: backgroundBtn }}
                     focusBorderColor={backgroundBtn}
-                    id="login_email"
-                    value={value.email}
+                    placeholder="********"
+                    id="login_password"
+                    value={value.password}
                     onChange={handleInputChange}
                   />
-                  <FormLabel pt="20px">Password</FormLabel>
-                  <InputGroup>
-                    <Input
-                      name="password"
-                      type={showPassword ? 'text' : 'password'}
-                      _placeholder={{ opacity: 0.6, color: backgroundBtn }}
-                      focusBorderColor={backgroundBtn}
-                      placeholder="********"
-                      id="login_password"
-                      value={value.password}
-                      onChange={handleInputChange}
-                    />
-                    <InputRightElement width="3rem">
-                      <Button
-                        h="1.7rem"
-                        size="sm"
-                        onClick={handlePasswordVisibility}
-                      >
-                        {showPassword ? (
-                          <Icon as={ViewIcon} />
-                        ) : (
-                          <Icon as={ViewOffIcon} />
-                        )}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                </FormControl>
-                <Box
-                  display="flex"
-                  mx="auto"
-                  flexDirection="column"
-                  paddingTop="40px"
-                >
-                  <ButtonFrame>
+                  <InputRightElement width="3rem">
                     <Button
-                      isLoading={isLoading ? true : false}
-                      width="100%"
-                      type="submit"
-                      aria-label="Login user"
-                      bg={backgroundBtnSave}
-                      _active={{ background: backgroundBtnSave }}
-                      _hover={{ background: hoverBtn }}
-                      size="md"
+                      h="1.7rem"
+                      size="sm"
+                      onClick={handlePasswordVisibility}
                     >
-                      Sign in
+                      {showPassword ? (
+                        <Icon as={ViewIcon} />
+                      ) : (
+                        <Icon as={ViewOffIcon} />
+                      )}
                     </Button>
-                  </ButtonFrame>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Box
+                display="flex"
+                mx="auto"
+                flexDirection="column"
+                paddingTop="40px"
+              >
+                <ButtonFrame>
+                  <Button
+                    isLoading={isLoading ? true : false}
+                    width="100%"
+                    type="submit"
+                    aria-label="Login user"
+                    bg={backgroundBtnSave}
+                    _active={{ background: backgroundBtnSave }}
+                    _hover={{ background: hoverBtn }}
+                    size="md"
+                  >
+                    Sign in
+                  </Button>
+                </ButtonFrame>
 
-                  <Text display="flex" mx="auto" pt="20px" fontSize="md">
-                    Not registered?
-                    <Link
-                      pl="5px"
-                      color={linkColor}
-                      fontSize="md"
-                      onClick={handleClickSignUp}
-                    >
-                      Create an account
-                    </Link>
-                  </Text>
-                </Box>
-              </form>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      </>
-    )
+                <Text display="flex" mx="auto" pt="20px" fontSize="md">
+                  Not registered?
+                  <Link
+                    pl="5px"
+                    color={linkColor}
+                    fontSize="md"
+                    onClick={handleClickSignUp}
+                  >
+                    Create an account
+                  </Link>
+                </Text>
+              </Box>
+            </form>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 };
 

@@ -19,16 +19,23 @@ import {
 } from 'redux/contacts/contactsApiSlice';
 import { ButtonFrame } from 'components';
 import { useFocus } from 'hooks/useFocus';
+import { useState } from 'react';
 
 export const ContactForm = () => {
   const toast = useToast();
   const [inputRef, setInputFocus] = useFocus();
+  const [phone, setPhone] = useState(null);
   const [postContact, { isLoading }] = usePostContactMutation();
   const { data } = useGetContactsQuery();
 
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
   const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
   const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
+
+  const handleChangePhone = e => {
+    const result = e.target.value.replace(/[a-zA-Z]/g, '');
+    setPhone(result);
+  };
 
   const handleSubmitForm = e => {
     e.preventDefault();
@@ -50,6 +57,7 @@ export const ContactForm = () => {
       status: 'success',
     });
     form.reset();
+    setPhone('')
     setInputFocus();
   };
 
@@ -76,12 +84,12 @@ export const ContactForm = () => {
                 }
               />
               <Input
+                type="text"
                 ref={inputRef}
                 name="name"
                 placeholder="Name"
                 _placeholder={{ opacity: 0.6, color: backgroundBtn }}
                 focusBorderColor={backgroundBtn}
-                type="text"
               />
             </InputGroup>
 
@@ -92,6 +100,8 @@ export const ContactForm = () => {
                 children={<PhoneIcon color={backgroundBtn} />}
               />
               <Input
+                value={phone ? phone : ''}
+                onChange={handleChangePhone}
                 type="tel"
                 name="number"
                 _placeholder={{ opacity: 0.6, color: backgroundBtn }}

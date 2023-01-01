@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import {
   Home,
@@ -11,10 +11,26 @@ import {
   Layout,
 } from './pages/index';
 import { PrivateRoute, PublicRoute } from './components/Routs/index.js';
+import { useGetUserQuery } from 'redux/auth/authApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import authSelectors from 'redux/auth/authSelectors';
+import { refresh } from 'redux/auth/authSlice';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(authSelectors.getUserToken);
+
+  const { data, isLoading } = useGetUserQuery(token, {
+    skip: token === null,
+  });
+
+  useEffect(() => {
+    if (data) dispatch(refresh(data));
+    // eslint-disable-next-line
+  }, [data]);
+
   return (
-    <>
+    !isLoading && (
       <Suspense fallback={false}>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -55,6 +71,6 @@ export const App = () => {
           </Route>
         </Routes>
       </Suspense>
-    </>
+    )
   );
 };

@@ -25,12 +25,14 @@ import {
   usePatchContactMutation,
 } from 'redux/contacts/contactsApiSlice';
 import { ButtonFrame } from 'components/';
+import { useState } from 'react';
 
 export const EditForm = ({ contact = {} }) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data } = useGetContactsQuery();
   const [patchContact, { isLoading }] = usePatchContactMutation();
+  const [phone, setPhone] = useState(contact.number);
 
   const backgroundBtn = useColorModeValue('purple.600', 'btnOutlineBG');
   const backgroundBtnSave = useColorModeValue('purple.600', 'darkBG');
@@ -40,12 +42,30 @@ export const EditForm = ({ contact = {} }) => {
     'lightBtnBGDark'
   );
 
+  const handleChangePhone = e => {
+    const result = e.target.value.replace(/[a-zA-Z]/g, '');
+    setPhone(result);
+  };
+
+  const updateContacts = (contactId, name, patchedContacts) => {
+    patchContact({ contactId, patchedContacts });
+    toast({
+      description: `Contact ${name} updated successfully`,
+      isClosable: true,
+      status: 'success',
+    });
+    return onClose();
+  };
+
   const handleSubmitForm = e => {
     e.preventDefault();
     const name = e.target.name.value.trim();
     const number = e.target.number.value.trim();
     if (name === '' || number === '') return;
     const patchedContacts = { name, number };
+    if (contact.name === name) {
+      return updateContacts(contact.id, name, patchedContacts);
+    }
     if (data.find(cont => cont.name.toLowerCase() === name.toLowerCase())) {
       return toast({
         description: `${name} is already in contacts`,
@@ -53,13 +73,8 @@ export const EditForm = ({ contact = {} }) => {
         status: 'error',
       });
     }
-    patchContact({ contactId: contact.id, patchedContacts });
-    onClose();
-    toast({
-      description: `Contact ${name} updated successfully`,
-      isClosable: true,
-      status: 'success',
-    });
+
+    return updateContacts(contact.id, name, patchedContacts);
   };
 
   return (
@@ -125,10 +140,11 @@ export const EditForm = ({ contact = {} }) => {
                     children={<PhoneIcon color={backgroundBtn} />}
                   />
                   <Input
+                    value={phone ? phone : ''}
+                    onChange={handleChangePhone}
                     type="tel"
                     name="number"
                     id="contact_email"
-                    defaultValue={contact.number}
                     _placeholder={{ opacity: 0.6, color: backgroundBtn }}
                     focusBorderColor={backgroundBtn}
                     placeholder="Phone number"

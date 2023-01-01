@@ -4,22 +4,16 @@ import {
   useBreakpointValue,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { useGetUserQuery } from 'redux/auth/authApiSlice';
 import authSelectors from 'redux/auth/authSelectors';
-import { refresh } from 'redux/auth/authSlice';
-
 import { Logo } from 'pages/Layout/styled';
 import { NavBar, UserMenu, MobileMenu, ToggleColorMode } from 'components';
 
 export const AppBar = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const token = useSelector(authSelectors.getUserToken);
   const isDesktop = useBreakpointValue({
     base: false,
     lg: true,
@@ -27,16 +21,6 @@ export const AppBar = () => {
   const backgroundBtn = useColorModeValue('whiteBG', 'darkBG');
   const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
 
-  const { data } = useGetUserQuery(token, {
-    skip: token === null,
-  });
-
-  useEffect(() => {
-    if (data) dispatch(refresh(data));
-    // eslint-disable-next-line
-  }, [data]);
-
-  const { isLoading } = useGetUserQuery();
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
   const handleClickLogin = () => {
@@ -60,7 +44,7 @@ export const AppBar = () => {
           PhoneBook
         </Logo>
 
-        {isLoggedIn && !isLoading && (
+        {isLoggedIn && (
           <>
             {isDesktop ? (
               <>
@@ -81,7 +65,7 @@ export const AppBar = () => {
           </>
         )}
 
-        {!isLoggedIn && !isLoading && (
+        {!isLoggedIn && (
           <>
             {isDesktop ? (
               <Box

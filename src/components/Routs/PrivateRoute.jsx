@@ -1,20 +1,25 @@
+import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { useGetUserQuery } from 'redux/auth/authApiSlice';
 import authSelectors from 'redux/auth/authSelectors';
 
 const PrivateRoute = ({ children }) => {
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
-  const { isLoading, isFetching } = useGetUserQuery();
+  try {
+    const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+    const location = useLocation();
+    const { isLoading } = useGetUserQuery();
+    Cookies.set('privateRoute', location.pathname, { expires: 7 });
 
-  if (isLoggedIn && !isLoading && !isFetching) {
-    return children;
-  }
-  if (!isLoggedIn && !isLoading && !isFetching) {
-    return <Navigate to="/login" />;
-  }
+    if (isLoggedIn && !isLoading) {
+      return children;
+    }
+    if (!isLoggedIn && !isLoading) {
+      return <Navigate to="/login" />;
+    }
+  } catch (error) {}
 };
 export default PrivateRoute;
 
