@@ -43,7 +43,7 @@ export const EditForm = ({ contact = {} }) => {
   );
 
   const handleChangePhone = e => {
-    const result = e.target.value.replace(/[a-zA-Z]/g, '');
+    const result = e.target.value.replace(/[a-zA-Zа-яА-Я\'\і\І\-\=\"\_]/g, '');
     setPhone(result);
   };
 
