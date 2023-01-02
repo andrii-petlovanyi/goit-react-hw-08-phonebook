@@ -33,7 +33,7 @@ export const ContactForm = () => {
   const hoverBtn = useColorModeValue('hoverWhite', 'hoverBlack');
 
   const handleChangePhone = e => {
-    const result = e.target.value.replace(/[a-zA-Z]/g, '');
+    const result = e.target.value.replace(/[a-zA-Zа-яА-Я\'\і\І\-\=\"\_]/g, '');
     setPhone(result);
   };
 
@@ -57,7 +57,7 @@ export const ContactForm = () => {
       status: 'success',
     });
     form.reset();
-    setPhone('')
+    setPhone('');
     setInputFocus();
   };
 
